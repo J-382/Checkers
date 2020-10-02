@@ -662,20 +662,4 @@ public class Town{
     public boolean isVisible(){
         return isVisible;
     }
-    
-    public void unnecesaryTest1(){
-        makeVisible();
-        Canvas canvas = Canvas.getCanvas();
-        addLocation("red",100,100);
-        addLocation("blue",100,50);
-        addLocation("green",50,50);
-        addStreet("red","blue");
-        canvas.wait(1000);
-        addStreet("red","green");
-        canvas.wait(1000);
-        addStreet("green","blue");
-        canvas.wait(1000);
-        delStreet();
-    }
-    
 }

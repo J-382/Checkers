@@ -45,26 +45,4 @@ public class TownContest
     public boolean ok(){
         return ok;
     }
-    
-    public void solveTest1(){
-        String[] input = {"20 17","9 4","5 20","17 13","19 18","5 16","18 19","11 7","10 4","8 15","15 13","13 16","2 11","4 3","2 7","16 12","15 3","8 3"};
-        String[] solution = solve(input);
-        for(String i: solution) System.out.println(i);
-    }
-    
-    public void solveTest2(){
-        String[] input = {"5 4","1 3","2 3","3 4","4 5"};
-        String[] solution = solve(input);
-        for(String i: solution) System.out.println(i);
-    }
-    
-    public void simulateTest1(){
-        String[] input = {"5 4","1 3","2 3","3 4","4 5"};
-        simulate(input,true);
-    }
-    
-    public void simulateTest2(){
-        String[] input = {"8 8","1 2","1 3","2 3","1 5","1 6","3 4","6 7","6 8"};
-        simulate(input,true);
-    }
 }
