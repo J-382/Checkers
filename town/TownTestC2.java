@@ -1,3 +1,5 @@
+package town;
+
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -215,7 +217,6 @@ public class TownTestC2
     @Test
     public void noDeberiaTenerElementos(){
         Town town = new Town(500,500);
-        town.makeVisible();
         town.addLocation("blue",100,100);
         town.addLocation("red",100,200);
         town.addStreet("blue","red");

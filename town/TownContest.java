@@ -1,3 +1,5 @@
+package town;
+
 import java.util.*;
 import java.util.Arrays;
 import java.io.*;

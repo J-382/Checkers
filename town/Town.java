@@ -1,4 +1,6 @@
-import java.awt.*;
+package town;
+
+import Shapes.*;
 import java.math.*;
 import java.util.*;
 import javax.swing.JOptionPane;
