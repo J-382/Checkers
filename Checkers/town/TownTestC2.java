@@ -11,14 +11,12 @@ import java.util.ArrayList;
  * @author  Angie Medina - Jose Perez
  * @version 14/09/20
  */
-public class TownTestC2
-{
+public class TownTestC2{
     private Town townC2;
     /**
      * Default constructor for test class TownTestC2
      */
-    public TownTestC2()
-    {
+    public TownTestC2(){
     }
     
     /**
@@ -27,8 +25,7 @@ public class TownTestC2
      * Called before every test case method.
      */
     @Before
-    public void setUp()
-    {
+    public void setUp(){
     }
     
     // Pruebas de la solucion
@@ -368,7 +365,6 @@ public class TownTestC2
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown(){
     }
 }

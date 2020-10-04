@@ -212,6 +212,17 @@ public class RGB
                 rgb = "0 0 0";
                 break;
                 
+            // Reserved to special types
+            case "green sheen":
+                rgb = "110 174 161";
+                break;
+            case "pearly purple":
+                rgb = "183 104 162";
+                break;
+            case "ruby":
+                rgb = "170 64 105";
+                break;
+                
             default:
                 rgb = "No matches";
                 break;

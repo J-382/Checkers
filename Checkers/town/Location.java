@@ -10,23 +10,20 @@ import java.util.PriorityQueue;
  * @author Angie Medina - Jose Perez
  * @version 27/08/2020
  */
-public class Location
-{
-    // instance variables - replace the example below with your own
-    private int x,y;
-    private String color;
-    private Circle location,frame;
+public class Location{
+    protected int x,y;
+    protected String color;
+    protected Circle location,frame;
+    
     /**
      * Constructor of the location given certain information
      * @param color written in RGBa format
      * @param x position on the x axis
      * @param y position on the y axis
      */
-    public Location(String color, int x, int y)
-    {
-        // initialise instance variables
-        location = new Circle(x-10,y-10,color);
-        frame = new Circle(x-12,y-12,"gold");
+    public Location(String color, int x, int y){
+        location = new Circle(x - 10,y - 10, color);
+        frame = new Circle(x - 12, y - 12, "gold");
         frame.changeSize(24);
         this.color = color;
         this.x = x;
@@ -73,5 +70,9 @@ public class Location
     
     public Shape getShape(){
         return frame.getShape();
+    }
+    
+    public boolean canHaveStreets(){
+        return true;
     }
 }
