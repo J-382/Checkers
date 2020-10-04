@@ -1,0 +1,28 @@
+#BlueJ class context
+comment0.target=Sign
+comment0.text=\r\n\ Pretends\ to\ simulate\ a\ sign\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 27/08/2020\r\n
+comment1.params=locationA\ locationB
+comment1.target=Sign(Location,\ Location)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Sign\r\n
+comment2.params=
+comment2.target=void\ makeInvisible()
+comment2.text=\r\n\ Makes\ the\ sign\ invisible.\ If\ it's\ invisible\ already,\ do\ nothing;\r\n
+comment3.params=
+comment3.target=void\ makeVisible()
+comment3.text=\r\n\ Makes\ the\ sign\ visible.\ If\ it's\ visible\ already,\ do\ nothing;\r\n
+comment4.params=
+comment4.target=int[]\ getCoord()
+comment4.text=\r\n\ Returns\ a\ tuple\ with\ the\ sign's\ coordinates.\r\n\ @return\ A\ tuple\ with\ the\ sign's\ coordinates.\r\n
+comment5.params=
+comment5.target=void\ makeTransparent()
+comment6.params=
+comment6.target=void\ makeOpaque()
+comment7.params=newSize
+comment7.target=void\ changeSize(int)
+comment7.text=\r\n\ Change\ the\ sign's\ size\ to\ the\ new\ size\r\n\ @param\ newSize\ the\ new\ height\ in\ pixels.\ newSize\ must\ be\ >\=0.\r\n
+comment8.params=
+comment8.target=void\ changeColor()
+comment8.text=\r\n\ Changes\ the\ sign's\ color.\r\n
+comment9.params=
+comment9.target=java.util.ArrayList\ getLocations()
+numComments=10

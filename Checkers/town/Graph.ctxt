@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Graph
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Graph\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Graph()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Graph\r\n
+comment2.params=input
+comment2.target=java.util.HashMap\ graphMaker(java.lang.String[])
+comment3.params=vertex\ edges\ components\ size
+comment3.target=java.lang.String[]\ mst(java.util.ArrayList,\ double[][],\ java.util.ArrayList,\ int)
+comment3.text=\r\n\ Makes\ a\ minimum\ Spanning\ Tree\ with\ the\ current\ information\ in\ the\ simulator,\ \r\n\ then\ makes\ slightly\ transparent\ those\ streets\ and\ signs\ that\ don't\ belong\ to\ the\ M.S.T\r\n
+comment4.params=ini\ size\ vertex\ edges
+comment4.target=java.util.ArrayList\ bfs(int,\ int,\ java.util.ArrayList,\ double[][])
+comment4.text=\ Breadth\ First\ Search\ Algorithm\ implementation\r\n\ Returns\ a\ list\ with\ the\ visited\ nodes\r\n
+comment5.params=size\ vertex\ edges
+comment5.target=java.util.ArrayList\ componentsFinder(int,\ java.util.ArrayList,\ double[][])
+comment5.text=\ \r\n\ Returns\ a\ list\ with\ the\ inital\ nodes\ for\ each\ subgraph\ in\ the\ current\ town\r\n
+comment6.params=graph
+comment6.target=void\ findDeadEnds(java.util.HashMap)
+comment7.params=graph\ father\ node
+comment7.target=void\ dfs(java.util.HashMap,\ int,\ int)
+comment8.params=graph
+comment8.target=java.lang.String[]\ solution(java.util.HashMap)
+numComments=9

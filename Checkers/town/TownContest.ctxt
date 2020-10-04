@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=TownContest
+comment0.text=\r\n\ Solve\ the\ ICPC\ problem\ dead-end\ detector\r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 25/09/20\r\n
+comment1.params=
+comment1.target=TownContest()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TownContest\r\n
+comment2.params=input
+comment2.target=java.lang.String[]\ solve(java.lang.String[])
+comment2.text=\r\n\ Solve\ the\ problem\ of\ the\ dead-end\ detector\r\n\ @param\ input\ the\ format\ is\ the\ same\ of\ the\ problem\ dead-end\ detector\r\n\ @return\ the\ number\ of\ the\ no\ reduntant\ signs\ in\ the\ city\ along\ to\ the\ corresponding\ signs\r\n
+comment3.params=input\ slow
+comment3.target=void\ simulate(java.lang.String[],\ boolean)
+comment3.text=\r\n\ Simulate\ the\ solution\ to\ the\ problem\ dead-end\ detector\r\n\ @param\ input\ the\ format\ is\ the\ same\ of\ the\ problem\ dead-end\ detector\r\n\ @param\ slow\ true\ if\ the\ user\ wants\ the\ simulator\ go\ slower\ tha\ usual\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ false\ otherwise\r\n
+comment4.params=
+comment4.target=boolean\ ok()
+comment4.text=\r\n\ Return\ if\ the\ class\ has\ been\ used\r\n
+numComments=5

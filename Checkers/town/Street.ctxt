@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Street
+comment0.text=\r\n\ Pretends\ to\ simulate\ a\ street\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 27/08/2020\r\n\ \r\n
+comment1.params=location1\ location2
+comment1.target=Street(Location,\ Location)
+comment1.text=\r\n\ Constructor\ of\ the\ street\ given\ certain\ information\r\n\ @param\ location1\ one\ of\ the\ location\ who's\ connected\ to\ the\ street\r\n\ @param\ location2\ one\ of\ the\ location\ who's\ connected\ to\ the\ street\r\n
+comment2.params=
+comment2.target=void\ makeVisible()
+comment2.text=\r\n\ Make\ this\ line\ visible.\ If\ it\ was\ already\ visible,\ do\ nothing.\r\n
+comment3.params=
+comment3.target=void\ makeInvisible()
+comment3.text=\r\n\ Make\ this\ line\ invisible.\ If\ it\ was\ already\ invisible,\ do\ nothing.\r\n
+comment4.params=newColor
+comment4.target=void\ changeColor(java.lang.String)
+comment4.text=\r\n\ Change\ the\ color.\ \r\n\ @param\ newColor\ written\ in\ RGB\ code\r\n
+comment5.params=
+comment5.target=java.lang.String\ getLocation1()
+comment5.text=\r\n\ Returns\ the\ first\ location's\ color\r\n\ @return\ A\ string\ with\ the\ RGB\ first\ location's\ color\r\n
+comment6.params=
+comment6.target=java.lang.String\ getLocation2()
+comment6.text=\r\n\ Returns\ the\ second\ location's\ color\r\n\ @return\ A\ string\ with\ the\ RGB\ second\ location's\ color\r\n
+comment7.params=
+comment7.target=double\ getLength()
+numComments=8
