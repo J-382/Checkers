@@ -9,14 +9,16 @@ import java.util.ArrayList;
  * The test class TownTestC2.
  *
  * @author  Angie Medina - Jose Perez
- * @version 14/09/20
+ * @version 4/10/2020
  */
-public class TownTestC2{
+public class TownTestC2
+{
     private Town townC2;
     /**
      * Default constructor for test class TownTestC2
      */
-    public TownTestC2(){
+    public TownTestC2()
+    {
     }
     
     /**
@@ -25,7 +27,8 @@ public class TownTestC2{
      * Called before every test case method.
      */
     @Before
-    public void setUp(){
+    public void setUp()
+    {
     }
     
     // Pruebas de la solucion
@@ -221,7 +224,7 @@ public class TownTestC2{
         town.addStreet("blue","green");
         town.addSign("blue","green"); 
         for(int i = 0; i < 6; i++)town.undo();
-        boolean locations = town.allLocations().length==0;
+        boolean locations = town.allLocations().length == 0;
         boolean streets = town.allStreets().length==0;
         boolean signs = town.allSigns().length==0;
         boolean assertBool = locations && streets && signs;
@@ -229,7 +232,7 @@ public class TownTestC2{
     }
     
     @Test
-    public void DeberiaTenerLosMismosElementos(){
+    public void deberiaTenerLosMismosElementos(){
         Town town = new Town(500,500);
         town.addLocation("blue",100,100);
         town.addLocation("red",100,200);
@@ -359,12 +362,18 @@ public class TownTestC2{
         assertTrue(townC2.isVisible());
     }
 
+    
+    // Pruebas del 4to ciclo
+    
+    
+    
     /**
      * Tears down the test fixture.
      *
      * Called after every test case method.
      */
     @After
-    public void tearDown(){
+    public void tearDown()
+    {
     }
 }

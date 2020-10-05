@@ -14,20 +14,27 @@ public class Sign
     private int x,y;
     private Rectangle square;
     private Circle sign,frame;
-    private Location locationA,locationB;
     private String colorSign;
-
+    protected final Street street;
+    private String name;
     /**
      * Constructor for objects of class Sign
      */
-    public Sign(Location locationA, Location locationB)
+    
+    public Sign(String name, Street street)
     {
         // initialise instance variables
+        this.name = name;
         int[] a,b;
-        this.locationA = locationA;
-        this.locationB = locationB;
-        a = locationA.getLocation();
-        b = locationB.getLocation();
+        if(name.split("-")[0].equals(street.getLocation1().getColor())){
+            a = street.getLocation1().getLocation();
+            b = street.getLocation2().getLocation();
+        }
+        else {
+            b = street.getLocation1().getLocation();
+            a = street.getLocation2().getLocation();
+        }
+        this.street = street;
         //
         double m = (double) (a[1]-b[1]);
         m /= (a[0]-b[0]);
@@ -92,12 +99,18 @@ public class Sign
         return coor;
     }
     
+    /**
+     * Makes the sign transparent
+     */
     public void makeTransparent(){
         sign.changeColor(sign.getColor()+"-");
         frame.changeColor(frame.getColor()+"-");
         square.changeColor(square.getColor()+"-");
     }
     
+    /**
+     * Makes the sign opaque
+     */
     public void makeOpaque(){
         sign.changeColor(sign.getColor().replace("-",""));
         frame.changeColor(frame.getColor().replace("-",""));
@@ -122,9 +135,28 @@ public class Sign
         sign.changeColor(colorSign);        
     }
     
-    public ArrayList<Location> getLocations(){
-        ArrayList<Location> locations =  new ArrayList<>();
-        locations.add(locationA); locations.add(locationB);
-        return locations;
+    /**
+     * Remove the sign for the town
+     * @returns boolean indicates if the operation was successful
+     */
+    public boolean remove(){
+        makeInvisible();
+        return true;
+    }
+    
+    /**
+     * Returns the sign's identifier
+     * @returns String contains the sign's identifier
+     */
+    public String getName(){
+        return name;
+    }
+    
+    /**
+     * Returns the sign's type
+     * @returns String contains the sign's type
+     */
+    public String getType(){
+        return "normal";
     }
 }

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=TownTestC2
-comment0.text=\r\n\ The\ test\ class\ TownTestC2.\r\n\r\n\ @author\ \ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 14/09/20\r\n
+comment0.text=\r\n\ The\ test\ class\ TownTestC2.\r\n\r\n\ @author\ \ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 4/10/2020\r\n
 comment1.params=
 comment1.target=TownTestC2()
 comment1.text=\r\n\ Default\ constructor\ for\ test\ class\ TownTestC2\r\n
@@ -17,7 +17,7 @@ comment14.target=void\ deberiaEliminarUnaSe\u00F1alSobrante()
 comment15.params=
 comment15.target=void\ noDeberiaTenerElementos()
 comment16.params=
-comment16.target=void\ DeberiaTenerLosMismosElementos()
+comment16.target=void\ deberiaTenerLosMismosElementos()
 comment17.params=
 comment17.target=void\ noDeberiaRealizarLaUltimaAccion()
 comment18.params=

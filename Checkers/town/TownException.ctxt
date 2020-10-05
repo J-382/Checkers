@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=TownException
-comment0.text=\r\n\ Exceptions\ that\ might\ raise\ in\ the\ Town\ class\r\n\r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 04/10/20\r\n
+comment0.text=\r\n\ A\ class\ with\ all\ town\ exceptions\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 04/10/2020\r\n
 comment1.params=message
 comment1.target=TownException(java.lang.String)
+comment1.text=\r\n\ Genera\ una\ excepcion\ con\ el\ mensaje\ dado\r\n
 numComments=2

@@ -6,21 +6,23 @@ import java.awt.Toolkit;
 import java.util.PriorityQueue;
 import java.util.Random;
 /**
- * Write a description of class Graph here.
+ * A graph class with some common graph algori
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Angie Medina - Jose Perez
+ * @version 4/10/2020
  */
 public class Graph
 {
     private static ArrayList<Tuple> deadEnds;
+    private HashMap<Integer, ArrayList<Integer>> graph;
     private static HashMap<Integer, Integer> cnt;
     // instance variables - replace the example below with your own
     /**
      * Constructor for objects of class Graph
      */
-    public Graph()
+    public Graph(HashMap<Integer, ArrayList<Integer>> graph)
     {
+        this.graph = graph;
     }
     
     static public HashMap<Integer, ArrayList<Integer>> graphMaker(String input[]){

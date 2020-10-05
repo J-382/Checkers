@@ -2,17 +2,26 @@ package town;
 
 
 /**
- * Write a description of class Isolated here.
- *
- * @author (your name)
+ * A location that don't allow streets to be added to it
+ * 
+ * @author (your name) 
  * @version (a version number or a date)
  */
-public class Isolated extends Location{
+public class Isolated extends Location
+{
     /**
-     * Constructor for objects of class Isolated
+     * Constructor of the location given certain information
+     * @param color written in RGBa format
+     * @param x position on the x axis
+     * @param y position on the y axis
      */
     public Isolated(String color, int x, int y){
-        super(color, x, y);
+        super(color,x,y);
+    }
+    
+    @Override
+    public String getType(){
+        return "isolated";
     }
     
     @Override

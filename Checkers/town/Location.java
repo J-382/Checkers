@@ -11,10 +11,10 @@ import java.util.PriorityQueue;
  * @version 27/08/2020
  */
 public class Location{
+    // instance variables - replace the example below with your own
     protected int x,y;
     protected String color;
     protected Circle location,frame;
-    
     /**
      * Constructor of the location given certain information
      * @param color written in RGBa format
@@ -22,8 +22,8 @@ public class Location{
      * @param y position on the y axis
      */
     public Location(String color, int x, int y){
-        location = new Circle(x - 10,y - 10, color);
-        frame = new Circle(x - 12, y - 12, "gold");
+        location = new Circle(x-10,y-10,color);
+        frame = new Circle(x-12,y-12,"gold");
         frame.changeSize(24);
         this.color = color;
         this.x = x;
@@ -64,15 +64,38 @@ public class Location{
         return color;
     }
     
+    /**
+     * Changes the location's frame color to the normal color
+      */
     public void changeFrame(){
         frame.changeColor("black");
     }
     
+    /**
+     * Changes the location's frame color to the initial color
+      */
+    public void changeFrameIni(){
+        frame.changeColor("gold");
+    }
+    
+    /**
+     * Returns the Shape of the location's frame
+     */
     public Shape getShape(){
         return frame.getShape();
     }
     
+    /**
+     * Returns if the street can have streets
+     */
     public boolean canHaveStreets(){
         return true;
+    }
+    
+    /**
+     * Returns the type of the location
+      */
+    public String getType(){
+        return "normal";
     }
 }

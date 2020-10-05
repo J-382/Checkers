@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Graph
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Graph\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=Graph()
+comment0.text=\r\n\ A\ graph\ class\ with\ some\ common\ graph\ algori\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 4/10/2020\r\n
+comment1.params=graph
+comment1.target=Graph(java.util.HashMap)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Graph\r\n
 comment2.params=input
 comment2.target=java.util.HashMap\ graphMaker(java.lang.String[])

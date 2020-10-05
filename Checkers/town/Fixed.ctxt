@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Fixed
+comment0.text=\r\n\ A\ sign\ that\ cannot\ be\ removed\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\ \r\n\ @version\ 4/10/2020\r\n
+comment1.params=name\ street
+comment1.target=Fixed(java.lang.String,\ Street)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Fixed\r\n
+comment2.params=
+comment2.target=boolean\ remove()
+comment3.params=
+comment3.target=java.lang.String\ getType()
+numComments=4
