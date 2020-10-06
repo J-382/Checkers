@@ -11,7 +11,6 @@ import java.util.PriorityQueue;
  * @version 27/08/2020
  */
 public class Location{
-    // instance variables - replace the example below with your own
     protected int x,y;
     protected String color;
     protected Circle location,frame;

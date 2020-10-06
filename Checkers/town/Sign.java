@@ -8,9 +8,7 @@ import java.util.*;
  * @author Angie Medina - Jose Perez
  * @version 27/08/2020
  */
-public class Sign
-{
-    // instance variables - replace the example below with your own
+public class Sign{
     private int x,y;
     private Rectangle square;
     private Circle sign,frame;
@@ -21,9 +19,7 @@ public class Sign
      * Constructor for objects of class Sign
      */
     
-    public Sign(String name, Street street)
-    {
-        // initialise instance variables
+    public Sign(String name, Street street){
         this.name = name;
         int[] a,b;
         if(name.split("-")[0].equals(street.getLocation1().getColor())){
@@ -63,7 +59,7 @@ public class Sign
             y = (int) (m*(x-a[0])+a[1]);
         }
         //
-        colorSign = "gold";
+        colorSign = "wine";
         square = new Rectangle(x-5,y-5);
         square.changeColor("zero");
         sign = new Circle(x-3,y-3,colorSign);
@@ -128,11 +124,19 @@ public class Sign
     }
     
     /**
-      * Changes the sign's color.
+      * Changes the sign's color to the standard.
       */
     public void changeColor(){
-        colorSign ="wine";
+        colorSign = "wine";
         sign.changeColor(colorSign);        
+    }
+    
+    /**
+     * Changes the sign's color to the inicial color.
+     */
+    public void changeColorIni(){
+        colorSign = "gold";
+        sign.changeColor(colorSign);
     }
     
     /**

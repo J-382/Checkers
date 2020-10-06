@@ -17,11 +17,11 @@ public class Bouncy extends Sign{
     
     @Override
     public boolean remove(){
-        String aux = super.getName().split("-")[1] + "-" + super.getName().split("-")[0];
+        String reverseName = super.getName().split("-")[1] + "-" + super.getName().split("-")[0];
         boolean bounce = false;
         super.makeInvisible();
-        if(!street.containsSign(aux)) {
-            street.addSign("bouncy",aux);
+        if(!street.containsSign(reverseName)) {
+            street.addSign("bouncy",reverseName);
             bounce = true;
         }
         return !bounce;

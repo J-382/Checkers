@@ -4,8 +4,8 @@ package town;
 /**
  * A location that don't allow streets to be added to it
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Angie Medina - Jose Perez
+ * @version 05/10/20 
  */
 public class Isolated extends Location
 {

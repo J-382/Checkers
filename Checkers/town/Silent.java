@@ -17,9 +17,15 @@ public class Silent extends Street
         super(location1,location2);
     }
     
-    @Override
-    public void addSign(String signType, String identifier){
+    /*@Override
+    public Sign addSign(String signType, String identifier){
         TownException Exc = new TownException(TownException.ADD_TO_SILENTSTREET);
+        return null;
+    }*/
+    
+    @Override
+    public boolean canHaveSigns(){
+        return false;
     }
     
     @Override

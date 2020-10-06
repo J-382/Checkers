@@ -230,13 +230,13 @@ public class Town{
      * Checks if the wanted street can be added to the town, if thats the case creates the street desired.
      * 3rd mini cicle: add / delete street
      * @param locationA
-     * @param type valid types: normal, reverse, isolated
+     * @param type valid types: normal, silent, prudent
      * @throws TownException if there isn't a location with such color
      * @throws TownException if the street's type is not valid
      * @throws TownException if the street is already added in the town
      * @throws TownException if one location can't have streets
      */
-    public void checkStreet(String identifier, String locationA, String locationB, String type) throws TownException{
+    private void checkStreet(String identifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "silent", "prudent"};
        ArrayList<String> validStreets = new ArrayList<String>(Arrays.asList(valid)); 
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
@@ -258,7 +258,8 @@ public class Town{
      * @param locationA the color of one linked location
      * @param locationB the color of one linked location
      * @param type Type of the new location
-     */public void addStreet(String locationA, String locationB){
+     */
+    public void addStreet(String locationA, String locationB){
         addStreet("normal",locationA,locationB);
     }
     
@@ -300,7 +301,7 @@ public class Town{
         boolean canDel = true;
         if(streets.containsKey(identifier)){
             Street street = streets.get(identifier);
-            for(String i: street.signsKeys()) if(street.getSign(i).getType().equals("isolated")) canDel = false;
+            for(String i: street.signsKeys()) if(street.getSign(i).getType().equals("fixed")) canDel = false;
             if(canDel){
                 for(String i: street.signsKeys()){
                     delSign(i.split("-")[0],i.split("-")[1]);
@@ -335,23 +336,30 @@ public class Town{
      * Checks if the wanted street can be added to the town, if thats the case creates the street desired.
      * 3rd mini cicle: add / delete street
      * @param locationA
-     * @param type valid types: normal, reverse, isolated
+     * @param type valid types: normal, fixed, bouncy
      * @throws TownException if there isn't a location with such color
-     * @throws TownException if the street's type is not valid
-     * @throws TownException if the street is already added in the town
-     * @throws TownException if one location can't have streets
+     * @throws TownException if there isn't a street where to put it
+     * @throws TownException if the sign is already added in the town
+     * @throws TownException if the signs's type is not valid
      */
-    public void checkSign(String identifier,String identifier1, String locationA, String locationB, String type) throws TownException{
+    public void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "fixed", "bouncy"};
        ArrayList<String> validSigns = new ArrayList<String>(Arrays.asList(valid));
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
-       else if(!streets.containsKey(identifier)) throw new TownException(TownException.STREET_NOT_FOUND);
-       else if(streets.get(identifier).containsSign(identifier1)) throw new TownException(TownException.EXISTING_SIGN);
+       else if(!streets.containsKey(streetIdentifier)) throw new TownException(TownException.STREET_NOT_FOUND);
+       else if(streets.get(streetIdentifier).containsSign(signIdentifier)) throw new TownException(TownException.EXISTING_SIGN);
+       else if(!streets.get(streetIdentifier).canHaveSigns()) throw new TownException(TownException.STREET_NO_SIGN);
        else if(!(validSigns.contains(type))) throw new TownException(TownException.WRONG_SIGN_TYPE);
        
        if(lastSign != null) streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
-       lastSign = new String[]{identifier,identifier1};
-       streets.get(identifier).addSign(type, identifier1);
+       
+       
+       /*Sign newSign =  streets.get(streetIdentifier).addSign(type, signIdentifier);
+       String name =  newSign.getName();
+       lastSign =  new String[]{streetIdentifier, name};*/
+       
+       lastSign = new String[]{streetIdentifier,signIdentifier};
+       streets.get(streetIdentifier).addSign(type, signIdentifier);
     }
     
     /**
@@ -373,10 +381,10 @@ public class Town{
      */
     public void addSign(String type, String locationA, String locationB){
         locationA = locationA.toLowerCase(); locationB = locationB.toLowerCase();
-        String identifier = locationA.compareTo(locationB) < 0 ? (locationA + "-" + locationB):(locationB + "-" + locationA);
-        String identifier1 = locationA + "-" + locationB;
+        String streetIdentifier = locationA.compareTo(locationB) < 0 ? (locationA + "-" + locationB):(locationB + "-" + locationA);
+        String signIdentifier = locationA + "-" + locationB;
         try{
-            checkSign(identifier, identifier1, locationA, locationB, type);
+            checkSign(streetIdentifier, signIdentifier, locationA, locationB, type);
             lastElementType = "sign";
             if(isVisible) makeVisible();
             if(ok){visibleAction("undo add sign ", "sign");}
@@ -393,12 +401,12 @@ public class Town{
     public void delSign(String locationA, String locationB){
         locationA = locationA.toLowerCase();
         locationB = locationB.toLowerCase();
-        String identifier = locationA.compareTo(locationB)<0?(locationA+"-"+locationB):(locationB+"-"+locationA);
-        String identifier1 = locationA+"-"+locationB;
+        String streetIdentifier = locationA.compareTo(locationB)<0?(locationA+"-"+locationB):(locationB+"-"+locationA);
+        String signIdentifier = locationA+"-"+locationB;
         ok = true;
-        if(streets.containsKey(identifier)){
-            if(streets.get(identifier).containsSign(identifier1)){
-                if (!streets.get(identifier).removeSign(identifier1)){ 
+        if(streets.containsKey(streetIdentifier)){
+            if(streets.get(streetIdentifier).containsSign(signIdentifier)){
+                if (!streets.get(streetIdentifier).removeSign(signIdentifier)){ 
                     ok = false;
                     if(isVisible) {
                         boolean aux = slow; slow = false;
@@ -607,7 +615,7 @@ public class Town{
      * 6th mini-cicle : consult
      * @return A list of tuples with the locations that delimit the unnecessary streets
        */
-    public String[][] unnecessaryStreets(){ 
+    private String[][] unnecessaryStreets(){ 
         ArrayList<String> useless = new ArrayList<String>();
         for(String i: streets.keySet()){
             if(!usefulThings.contains(i)) useless.add(i);
@@ -716,7 +724,7 @@ public class Town{
         return isVisible;
     }
     
-    /**
+    /*
       * Usability requirement 4: Raise an error
       * @param text dispay in the error window
       */

@@ -21,10 +21,10 @@ public class TownException extends Exception{
     public static final String LOCATION_COLLISION ="Can't place a new location here.";
     public static final String LOCATION_NOT_FOUND ="There isn't a location with such color.";
     public static final String EXISTING_STREET ="There's already an identical street.";
-    public static final String LOCATION_NO_STREET ="That type of location can't have streets.";
+    public static final String LOCATION_NO_STREET ="That location type can't have streets.";
     public static final String STREET_NOT_FOUND = "There isn't a street who connects those locations.";
     public static final String EXISTING_SIGN = "There's already an identical sign.";
-    
+    public static final String STREET_NO_SIGN = "That street type can't have signs.";
     /**
      * Genera una excepcion con el mensaje dado
        */
