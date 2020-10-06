@@ -353,8 +353,10 @@ public class Town{
        
        if(lastSign != null) streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
        
-       
-       /*Sign newSign =  streets.get(streetIdentifier).addSign(type, signIdentifier);
+       /*if(streets.get(streetIdentifier) instanceof Prudent){
+           
+       }
+       Sign newSign =  streets.get(streetIdentifier).addSign(type, signIdentifier);
        String name =  newSign.getName();
        lastSign =  new String[]{streetIdentifier, name};*/
        
