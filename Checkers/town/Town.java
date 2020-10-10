@@ -69,30 +69,35 @@ public class Town{
      * @param number of street (must create thouse randomly)
      * @param number of dead-ends (must create thouse randomly)
      */
-    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow){
+    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow) throws TownException{
         this(height,width,slow);
-        Random r = new Random(); int[] colors = new int[numberLocations];
+        Random r = new Random();
+        String[] colors = Canvas.colorsList();
+        Arrays.sort(colors);
+        int maxConnectionsNumber = 1;
+        for(int i = 2; i< numberLocations; i++) maxConnectionsNumber*=i;
+        ok = false;
+        if(maxConnectionsNumber < numberStreets) throw new TownException(TownException.INVALID_NUMBER_STREETS);
+        if(numberDeadEnds > 2 * numberStreets) throw new TownException(TownException.INVALID_NUMBER_DEADENDS);
         for(int i = 0; i < numberLocations; i++){
-            boolean isAValidLocation = false; int n=0;
+            boolean isAValidLocation = false;
             while(!isAValidLocation){
-                n = r.nextInt(50);
-                addLocation(Canvas.colorsList()[n],r.nextInt(500),r.nextInt(500)); isAValidLocation = ok();
-            } colors[i] = n;
+                addLocation(colors[i],r.nextInt(height - 20),r.nextInt(width - 20)); 
+                isAValidLocation = ok();
+            }
         }
-        
         for(int i = 0; i < numberStreets; i++){
             boolean isAValidStreet = false;
             while(!isAValidStreet){
-                int a = r.nextInt(numberLocations-1), b = r.nextInt(numberLocations-1);
-                if(a == b) continue;
-                addStreet(Canvas.colorsList()[colors[a]],Canvas.colorsList()[colors[b]]); isAValidStreet = ok();
+                int a = r.nextInt(numberLocations), b = r.nextInt(numberLocations);
+                if(a == b) b = b < numberLocations - 1 ? b + 1 : b - 1;
+                addStreet(colors[a],colors[b]); isAValidStreet = ok();
             }
         }
-        
         for(int i = 0; i < numberDeadEnds; i++){
             ArrayList<String> aux = new ArrayList<String>(streets.keySet());
             if (streets.size() > 0){
-                int a = r.nextInt(streets.size()) - 1;
+                int a = r.nextInt(streets.size());
                 addSign(aux.get(a).split("-")[0],aux.get(a).split("-")[1]);
                 if(!ok) addSign(aux.get(a).split("-")[1],aux.get(a).split("-")[0]);
             }
@@ -144,11 +149,11 @@ public class Town{
      * @param color is written in RGBa format
      * @param x is the position on x axis
      * @param y is the position on y axis
-     * @param type valid types: normal, reverse, isolated
-     * @throws TownException if the color is not in the color list provided by the town
-     * @throws TownException if the color is already used by other location
-     * @throws TownException if the location's type is not valid
-     * @throws TownException if the location's positions are already occupied
+     * @param type valid types: normal, reverse, isolate
+     * @throws TownException COLOR_UNAVAILABLE,   if the color is not in the color list provided by the town;
+     *                       EXISTING_LOCATION,   if the color is already used by other location;
+     *                       WRONG_LOCATION_TYPE, if the location's type is not valid;
+     *                       LOCATION_COLLISION,  if the location's positions are already occupied
      */
     private void checkLocation(String color, int x, int y, String type) throws TownException{
        String[] valid = {"normal", "reverse", "isolated"};
@@ -231,10 +236,10 @@ public class Town{
      * 3rd mini cicle: add / delete street
      * @param locationA
      * @param type valid types: normal, silent, prudent
-     * @throws TownException if there isn't a location with such color
-     * @throws TownException if the street's type is not valid
-     * @throws TownException if the street is already added in the town
-     * @throws TownException if one location can't have streets
+     * @throws TownException LOCATION_NOT_FOUND, if there isn't a location with such color;
+     *                       EXISTING_STREET,    if the street is already added in the town;
+     *                       WRONG_STREET_TYPE,  if the street's type is not valid;
+     *                       LOCATION_NO_STREET, if one of the locations can't have streets
      */
     private void checkStreet(String identifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "silent", "prudent"};
@@ -272,7 +277,7 @@ public class Town{
      */
     public void addStreet(String type, String locationA, String locationB){
         locationA = locationA.toLowerCase(); locationB = locationB.toLowerCase();
-        String identifier = locationA.compareTo(locationB)<0?(locationA+"-"+locationB):(locationB+"-"+locationA);
+        String identifier = locationA.compareTo(locationB) < 0 ? (locationA + "-" + locationB):(locationB + "-" + locationA);
         type = type.toLowerCase();
         try{
             checkStreet(identifier, locationA, locationB, type);
@@ -296,7 +301,7 @@ public class Town{
     public void delStreet(String locationA, String locationB){
         locationA = locationA.toLowerCase();
         locationB = locationB.toLowerCase();
-        String identifier = locationA.compareTo(locationB)<0?(locationA+"-"+locationB):(locationB+"-"+locationA);
+        String identifier = locationA.compareTo(locationB) < 0 ? (locationA+"-"+locationB):(locationB+"-"+locationA);
         ok = true;
         boolean canDel = true;
         if(streets.containsKey(identifier)){
@@ -319,8 +324,8 @@ public class Town{
      * 3rd mini cicle: add / delete street
      */
     public void delStreet(){
-        String aux="";
-        double max=0;
+        String aux = "";
+        double max = 0;
         for(String i: streets.keySet()){
             String auxIdentifier = i.split("-")[1] + "-" + i.split("-")[0];
             if(!usefulThings.contains(i) && streets.get(i).getLength()>max && !streets.get(i).containsSign(i) && !streets.get(i).containsSign(auxIdentifier)){
@@ -337,10 +342,10 @@ public class Town{
      * 3rd mini cicle: add / delete street
      * @param locationA
      * @param type valid types: normal, fixed, bouncy
-     * @throws TownException if there isn't a location with such color
-     * @throws TownException if there isn't a street where to put it
-     * @throws TownException if the sign is already added in the town
-     * @throws TownException if the signs's type is not valid
+     * @throws TownException LOCATION_NOT_FOUND, if there isn't a location with such color;
+     *                       STREET_NOT_FOUND,   if there isn't a street where to put it;
+     *                       EXISTING_SIGN,      if the sign is already added in the town;
+     *                       WRONG_SIGN_TYPE,    if the signs's type is not valid;
      */
     public void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "fixed", "bouncy"};
@@ -390,8 +395,7 @@ public class Town{
             lastElementType = "sign";
             if(isVisible) makeVisible();
             if(ok){visibleAction("undo add sign ", "sign");}
-        }
-        catch(TownException e){ok = false;}
+        } catch(TownException e){ok = false;}
     }
     
     /**
@@ -678,7 +682,6 @@ public class Town{
             }
             for(Location i: locations.values()) if(!lastElementType.equals("location") || !i.equals(lastLocation)) {i.makeVisible();}
             canvas.wait(1000);
-            print(lastElementType);
             if(lastElementType.equals("location")) lastLocation.makeVisible();
             else if(lastElementType.equals("street")) lastStreet.makeVisible();
             else if(lastElementType.equals("sign")) streets.get(lastSign[0]).getSign(lastSign[1]).makeVisible();
@@ -811,16 +814,6 @@ public class Town{
         for(T i: a){
             System.out.print(""+i+" ");
         }System.out.println();
-    }
-    
-    // TESTS
-    
-    public void test(){
-        addLocation("normal","blue",100,200);
-        addLocation("normal","red",100,100);
-        addStreet("normal","blue","red");
-        addSign("bouncy","blue","red");
-        delSign("blue","red");
     }
 }
 

@@ -6,22 +6,18 @@ import javax.swing.JList;
 import java.awt.Toolkit;
 import java.awt.Dimension;
 /**
- * Write a description of class RGB here.
+ * Provides a conversor of colors
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Angie Medina - Jose Perez
+ * @version 27/08/2020
  */
-public class RGB
-{
-    // instance variables - replace the example below with your own
+public class RGB{
     public static final String[] colorsList = {"almond","sand","chesnut","bronze","cinnamon","tawny","rufous","red","crimson","wine","carmine","persian",
         "watermelon","orange khaki","salmon","orange vivid","ambar","yellow","gold","napoleto","mustard","green","green mid","sinople","avocado",
         "malachite","parrot","cyan","turquoise","blue light","blue","azur","zero","amaranth","lavender","purple","purpure","malva","violet",
         "magenta","pink","fuchsia","crisvilu","magenta neon","steel","ash","grey","cold","linen","white"};
     private boolean transparencyMode;
-    /**
-     * Provides a conversor of colors, given a color name it will return its equivalent to RGB format
-     */
+    
     public RGB(){
         transparencyMode = false;
     }
@@ -242,6 +238,11 @@ public class RGB
         JOptionPane.showMessageDialog(null, scrollPane, "List of Colors", JOptionPane.NO_OPTION);
     }
     
+    /**
+     * Set the transparencty mode
+     * @param mode true if the user wants the figure to be transparent
+     *              false otherwise
+     */
     public void setTransparencyMode(boolean mode){
         transparencyMode = mode;
     }

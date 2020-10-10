@@ -1,7 +1,5 @@
 package town;
 
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +18,15 @@ public class TownTestC4{
     private Town townC4;
     
     public TownTestC4(){
+    }
+    
+    /**
+     * Sets up the test fixture.
+     *
+     * Called before every test case method.
+     */
+    @Before
+    public void setUp(){
     }
     
     @Test
@@ -84,16 +91,6 @@ public class TownTestC4{
         townC4.delSign("blue","red");
         assertEquals(desiredAns,townC4.allSigns());
     }
-    
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
 
     /**
      * Tears down the test fixture.
@@ -101,8 +98,7 @@ public class TownTestC4{
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown(){
     }
 }
 

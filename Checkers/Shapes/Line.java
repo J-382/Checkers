@@ -5,7 +5,7 @@ import java.awt.geom.*;
 import java.math.*;
 
 /**
- * Pretends to simulate a street
+ * A triangle that can be manipulated and that draws itself on a canvas.
  * 
  * @author Angie Medina - Jose Perez
  * @version 27/08/2020
@@ -19,9 +19,11 @@ public class Line{
     public final double length;
     private boolean isTransparent;
     /**
-     * Constructor of the street given certain information
-     * @param location1 one of the location who's connected to the street
-     * @param location2 one of the location who's connected to the street
+     * Constructor of the line given certain information
+     * @param x1 the first position in the x axis
+     * @param y1 the first position in the y axis
+     * @param x2 the second position in the x axis
+     * @param y2 the second position in the y axis
      */
     public Line(int x1, int y1, int x2, int y2){
         this.x1 = x1;
@@ -58,6 +60,9 @@ public class Line{
         draw();
     }
     
+    /**
+     * Makes the line transparent
+     */
     public void makeTransparent(){
         isTransparent = true;
         draw();
