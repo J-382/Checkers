@@ -356,15 +356,13 @@ public class Town{
        else if(!streets.get(streetIdentifier).canHaveSigns()) throw new TownException(TownException.STREET_NO_SIGN);
        else if(!(validSigns.contains(type))) throw new TownException(TownException.WRONG_SIGN_TYPE);
        
-       if(lastSign != null) streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
-       
-       /*if(streets.get(streetIdentifier) instanceof Prudent){
-           
-       }
-       Sign newSign =  streets.get(streetIdentifier).addSign(type, signIdentifier);
-       String name =  newSign.getName();
-       lastSign =  new String[]{streetIdentifier, name};*/
-       
+       if(lastSign != null) {
+           streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
+           if(streets.get(lastSign[0]) instanceof Prudent){
+               String aux = lastSign[1].split("-")[1]+"-"+lastSign[1].split("-")[0];
+               streets.get(lastSign[0]).getSign(aux).changeColor();
+           }
+        }
        lastSign = new String[]{streetIdentifier,signIdentifier};
        streets.get(streetIdentifier).addSign(type, signIdentifier);
     }
@@ -759,7 +757,7 @@ public class Town{
      * records all all visible actions performed in the simulator   
      */
     private void visibleAction(String message, String object){
-        String key = "";
+        String key = "", auxKey = "";
         if (object.equals("location")){
             int[] coord = lastLocation.getLocation();
             key = lastLocation.getColor() + " " + coord[0] + " " + coord[1];
@@ -769,6 +767,8 @@ public class Town{
         }
         else if(object.equals("sign")){
             key = streets.get(lastSign[0]).getLocation1().getColor() + " " + streets.get(lastSign[0]).getLocation2().getColor();
+            auxKey = key.split(" ")[1] + " " + key.split(" ")[0];
+            auxKey = (streets.get(lastSign[0]).getType().equals("prudent"))?auxKey:"";
         }
         
         if(ok){
@@ -776,7 +776,10 @@ public class Town{
                 actions.set(actionsIterator,message + key);
                 for(int i = actionsIterator + 1; i < actions.size(); i++) actions.remove(i);
             }
-            else {actions.add(message + key);actionsIterator++;}
+            else{
+                actions.add(message + key);actionsIterator++;
+                if(!auxKey.equals("")) {actions.add(message + auxKey);actionsIterator++;}
+            }
         }    
     }
     

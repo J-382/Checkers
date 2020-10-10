@@ -360,12 +360,7 @@ public class TownTestC2
         townC2 = new Town(500, 500);
         townC2.makeVisible();
         assertTrue(townC2.isVisible());
-    }
-
-    
-    // Pruebas del 4to ciclo
-    
-    
+    }    
     
     /**
      * Tears down the test fixture.
