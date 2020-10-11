@@ -358,13 +358,16 @@ public class Town{
        
        if(lastSign != null) {
            streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
-           if(streets.get(lastSign[0]) instanceof Prudent){
-               String aux = lastSign[1].split("-")[1]+"-"+lastSign[1].split("-")[0];
-               streets.get(lastSign[0]).getSign(aux).changeColor();
-           }
-        }
+       }
        lastSign = new String[]{streetIdentifier,signIdentifier};
        streets.get(streetIdentifier).addSign(type, signIdentifier);
+       if(streets.get(streetIdentifier) instanceof Prudent){
+           String aux = signIdentifier.split("-")[1] + "-" + signIdentifier.split("-")[0];
+           if(streets.get(streetIdentifier).signsKeys().contains(aux)){
+               lastSign = new String[]{streetIdentifier,aux};
+               visibleAction("undo add street ", "street");
+           }
+       } 
     }
     
     /**
@@ -757,7 +760,7 @@ public class Town{
      * records all all visible actions performed in the simulator   
      */
     private void visibleAction(String message, String object){
-        String key = "", auxKey = "";
+        String key = "";
         if (object.equals("location")){
             int[] coord = lastLocation.getLocation();
             key = lastLocation.getColor() + " " + coord[0] + " " + coord[1];
@@ -767,8 +770,6 @@ public class Town{
         }
         else if(object.equals("sign")){
             key = streets.get(lastSign[0]).getLocation1().getColor() + " " + streets.get(lastSign[0]).getLocation2().getColor();
-            auxKey = key.split(" ")[1] + " " + key.split(" ")[0];
-            auxKey = (streets.get(lastSign[0]).getType().equals("prudent"))?auxKey:"";
         }
         
         if(ok){
@@ -778,7 +779,6 @@ public class Town{
             }
             else{
                 actions.add(message + key);actionsIterator++;
-                if(!auxKey.equals("")) {actions.add(message + auxKey);actionsIterator++;}
             }
         }    
     }
@@ -819,6 +819,15 @@ public class Town{
         }System.out.println();
     }
 
-    /*A ver si hace commit esta pendejada x2*/
+    public void test(){
+        addLocation("blue",100,100);
+        addLocation("red",200,100);
+        addLocation("green",100,200);
+        addStreet("prudent","blue","red");
+        addStreet("blue","green");
+        addSign("blue","red");
+        addSign("blue","green");
+    }
 }
+
 
