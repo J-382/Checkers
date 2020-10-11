@@ -60,4 +60,15 @@ public class townC4Atest{
     @After
     public void tearDown(){
     }
+
+    @Test
+    public void test1(){
+        try{
+            String[] locations = {"normal", "reverse", "isolated", "normal", "normal"};
+            String[] streets = {"normal", "normal", "normal", "prudent", "prudent", "silent"};
+            String[] signs = {"normal", "bouncy", "fixed"};
+            Town townC4 = new Town(500, 500, locations, streets, signs);
+        }catch(TownException e){}
+    }
 }
+

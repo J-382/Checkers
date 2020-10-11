@@ -12,7 +12,7 @@ import java.util.Random;
 * Pretends to simulate a town who has decided to improve road sign placement, especially for dead ends.
 * 
 * @author Angie Medina - Jose Perez
-* @version 4/10/2020
+* @version 11/10/2020
 */
 public class Town{   
     private int height, width,actionsIterator;
@@ -25,7 +25,9 @@ public class Town{
     private String[] lastSign;
     private String lastElementType;
     private ArrayList<String> actions;
-    
+    private static final ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList("normal", "isolated", "reverse"));
+    private static final ArrayList<String> validStreets = new ArrayList<String>(Arrays.asList("normal", "silent", "prudent"));
+    private static final ArrayList<String> validSigns = new  ArrayList<String>(Arrays.asList("normal", "bouncy", "fixed"));
     /** 
      * Constructor of the town given its length and width
      * 1st mini cicle: Create
@@ -68,41 +70,25 @@ public class Town{
      * @param number of locations (must create those randomly)
      * @param number of street (must create thouse randomly)
      * @param number of dead-ends (must create thouse randomly)
+     * @throws TownException INVALID_NUMBER_STREETS,  if is imposible to create that number of streets with the given locations
+     *                       INVALID_NUMBER_DEADENDS, if is imposible to create that number of signs with the given streets  
+     *                       WRONG_LOCATION_TYPE,     if the location's type is not valid
+     *                       WRONG_STREET_TYPE,       if the street's type is not valid
+     *                       WRONG_SIGN_TYPE,         if the sign's type is not valid
      */
-    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow) throws TownException{
+    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow){
         this(height,width,slow);
-        Random r = new Random();
         String[] colors = Canvas.colorsList();
         Arrays.sort(colors);
-        int maxConnectionsNumber = 1;
-        for(int i = 2; i< numberLocations; i++) maxConnectionsNumber*=i;
-        ok = false;
-        if(maxConnectionsNumber < numberStreets) throw new TownException(TownException.INVALID_NUMBER_STREETS);
-        if(numberDeadEnds > 2 * numberStreets) throw new TownException(TownException.INVALID_NUMBER_DEADENDS);
-        for(int i = 0; i < numberLocations; i++){
-            boolean isAValidLocation = false;
-            while(!isAValidLocation){
-                addLocation(colors[i],r.nextInt(height - 20),r.nextInt(width - 20)); 
-                isAValidLocation = ok();
-            }
-        }
-        for(int i = 0; i < numberStreets; i++){
-            boolean isAValidStreet = false;
-            while(!isAValidStreet){
-                int a = r.nextInt(numberLocations), b = r.nextInt(numberLocations);
-                if(a == b) b = b < numberLocations - 1 ? b + 1 : b - 1;
-                addStreet(colors[a],colors[b]); isAValidStreet = ok();
-            }
-        }
-        for(int i = 0; i < numberDeadEnds; i++){
-            ArrayList<String> aux = new ArrayList<String>(streets.keySet());
-            if (streets.size() > 0){
-                int a = r.nextInt(streets.size());
-                addSign(aux.get(a).split("-")[0],aux.get(a).split("-")[1]);
-                if(!ok) addSign(aux.get(a).split("-")[1],aux.get(a).split("-")[0]);
-            }
-        }
-        ok = true;
+        String [] typeLocations = new String[numberLocations];
+        String [] typeStreets = new String[numberStreets];
+        String [] typeSigns = new String[numberDeadEnds];
+        for(int i = 0; i < numberLocations; i++) typeLocations[i] = "normal";
+        for(int i = 0; i < numberStreets; i++) typeStreets[i] = "normal";
+        for(int i = 0; i < numberDeadEnds; i++) typeSigns[i] = "normal";
+        try{
+            randomElements(typeLocations, typeStreets, typeSigns, colors);
+        }catch(TownException e){}
     }
     
     /**
@@ -120,7 +106,7 @@ public class Town{
         Arrays.sort(colorsList);
         for(int i = 0 ; i < l; i++){
             boolean isAValidLocation = false;
-            int n=0;
+            int n = 0;
             while(!isAValidLocation){
                 n = r.nextInt(50);
                 addLocation(colorsList[i],r.nextInt(500),r.nextInt(500));
@@ -142,6 +128,135 @@ public class Town{
     public Town(String[] input){
         this(input,false);
     }    
+    
+    /**
+     * Constructor of a random town given some features
+     * 1st mini cicle: Create
+     * @param height of the town in pixels
+     * @param width of the town in pixels
+     * @param typeLocations the types of the locations (must create those randomly)
+     * @param typeStreet the types of the streets (must create thouse randomly)
+     * @param typeSign the types of the signs (must create thouse randomly)
+     * @throws TownException INVALID_NUMBER_STREETS,  if is imposible to create that number of streets with the given locations
+     *                       INVALID_NUMBER_DEADENDS, if is imposible to create that number of signs with the given streets  
+     *                       WRONG_LOCATION_TYPE,     if the location's type is not valid
+     *                       WRONG_STREET_TYPE,       if the street's type is not valid
+     *                       WRONG_SIGN_TYPE,         if the sign's type is not valid
+     */
+    public Town(int height, int width, String[] typeLocations, String[] typeStreets, String[] typeSigns) throws TownException{
+        this(height,width,false);
+        String[] colors = Canvas.colorsList();
+        Arrays.sort(colors);
+        try{
+            randomElements(typeLocations, typeStreets, typeSigns, colors);
+        }catch(TownException e){throw e;}
+    }
+    
+    /*
+     * Creates elements randomly
+     * @param typeLocations the types of the locations (must create those randomly)
+     * @param typeStreet the types of the streets (must create thouse randomly)
+     * @param typeSign the types of the signs (must create thouse randomly)
+     * @param colors the valid colors
+     * @throws TownException INVALID_NUMBER_STREETS,  if is imposible to create that number of streets with the given locations
+     *                       INVALID_NUMBER_DEADENDS, if is imposible to create that number of signs with the given streets  
+     *                       WRONG_LOCATION_TYPE,     if the location's type is not valid
+     *                       WRONG_STREET_TYPE,       if the street's type is not valid
+     *                       WRONG_SIGN_TYPE,         if the sign's type is not valid
+     */
+    private void randomElements(String[] typeLocations, String[] typeStreets, String[] typeSigns, String[] colors) throws TownException{
+        int maxConnectionsNumber = 1, contSigns = 0;
+        ArrayList<String> locationStreets = new ArrayList<String>();
+        try{
+            locationStreets = randomLocation(typeLocations, colors);
+        } catch(TownException e){throw e;}
+        for(int i = 2; i < locationStreets.size(); i++) maxConnectionsNumber *= i;
+        if(locationStreets.size() == 1) maxConnectionsNumber = 0;
+        ok = false;
+        if(maxConnectionsNumber < typeStreets.length) throw new TownException(TownException.INVALID_NUMBER_STREETS);
+        ArrayList<String> streetSigns = new ArrayList<String>();
+        try{  
+            streetSigns = randomStreet(locationStreets, typeStreets, colors);
+        }
+        catch(TownException e){throw e;}
+        for (String identifier : streetSigns){
+            if (streets.get(identifier) instanceof Prudent) contSigns += 1;
+            else{contSigns += 2;}
+        }
+        if(typeSigns.length > contSigns) throw new TownException(TownException.INVALID_NUMBER_DEADENDS);
+        try{  
+            randomSigns(streetSigns, typeSigns);
+        }
+        catch(TownException e){throw e;}
+        ok = true;
+    }
+    
+    /*
+     * Creates locations randomly
+     * @param typeLocations the types of the locations
+     * @param colors the valid colors
+     * @throws TownException WRONG_LOCATION_TYPE,if the location's type is not valid
+     * @return locationStreets the colors of the locations that can have streets
+     */
+    private ArrayList<String> randomLocation(String[] typeLocations, String[] colors) throws TownException{
+        ArrayList<String> locationStreets = new ArrayList<>();
+        Random r = new Random();
+        for(int i = 0; i < typeLocations.length; i++){
+            if(!validLocations.contains(typeLocations[i].toLowerCase())) throw new TownException(TownException.WRONG_LOCATION_TYPE);
+            boolean isAValidLocation = false;
+            while(!isAValidLocation){
+                addLocation(typeLocations[i], colors[i], r.nextInt(height - 20), r.nextInt(width - 20)); 
+                isAValidLocation = ok();
+            }
+            if (locations.get(colors[i]).canHaveStreets()) locationStreets.add(colors[i]);
+        }
+        return locationStreets;
+    }
+    
+    /*
+     * Creates streets randomly
+     * @param locationStreets the colors of the locations that can have streets
+     * @param typeStreets the types of the streets
+     * @param colors the valid colors
+     * @throws TownException WRONG_STREET_TYPE, if the street's type is not valid
+     * @return streetSigns the color of the streets that can have signs
+     */
+    private ArrayList<String> randomStreet(ArrayList<String> locationStreets, String[] typeStreets, String[] colors)throws TownException{
+        ArrayList<String> streetSigns = new ArrayList<String>();
+        Random r = new Random();
+        for(int i = 0; i < typeStreets.length; i++){
+            if(!validStreets.contains(typeStreets[i])) throw new TownException(TownException.WRONG_STREET_TYPE);
+            boolean isAValidStreet = false;
+            int a = 0, b = 0;
+            while(!isAValidStreet){
+                a = r.nextInt(locationStreets.size()); b = r.nextInt(locationStreets.size());
+                if(a == b) b = b < locationStreets.size() - 1 ? b + 1 : b - 1;
+                addStreet(typeStreets[i], locationStreets.get(a),locationStreets.get(b)); isAValidStreet = ok();
+            }
+            String locationA = locationStreets.get(a), locationB = locationStreets.get(b);
+            String identifier = locationA.compareTo(locationB) < 0 ? (locationA + "-" + locationB):(locationB + "-" + locationA);
+            if (streets.get(identifier).canHaveSigns()) streetSigns.add(identifier);
+        }
+        return streetSigns;
+    }
+    
+    /*
+     * Creates signs randomly
+     * @param streetSigns the identifier of the streets that can have signs
+     * @param typeSigns the types of the signs
+     * @throws TownException WRONG_SIGN_TYPE, if the sign's type is not valid
+     */
+    private void randomSigns(ArrayList<String> streetSigns, String[] typeSigns) throws TownException{
+        Random r = new Random();
+        for(int i = 0; i < typeSigns.length; i++){
+            if(!validSigns.contains(typeSigns[i])) throw new TownException(TownException.WRONG_SIGN_TYPE);
+            if (streets.size() > 0){
+                int a = r.nextInt(streetSigns.size());
+                addSign(streetSigns.get(a).split("-")[0], streetSigns.get(a).split("-")[1]);
+                if(!ok) addSign(streetSigns.get(a).split("-")[1], streetSigns.get(a).split("-")[0]);
+            }
+        }
+    }
     
     /**
      * Checks if the wanted location can be added to the town, if thats the case creates the location desired.
@@ -202,7 +317,10 @@ public class Town{
             lastElementType = "location";
             if(isVisible) makeVisible();
         }
-        catch(TownException e){ok = false;}     
+        catch(TownException e){
+            ok = false;
+            raiseError(e.getMessage());
+        }     
     }
     
     /**
@@ -286,9 +404,11 @@ public class Town{
             mst();
             if(isVisible) makeVisible();
             visibleAction("undo add street ", "street");
+            ok = true;
         }
         catch(TownException e){
             ok = false;
+            raiseError(e.getMessage());
         }   
     }
     
@@ -393,10 +513,14 @@ public class Town{
         String signIdentifier = locationA + "-" + locationB;
         try{
             checkSign(streetIdentifier, signIdentifier, locationA, locationB, type);
+            ok = true;
             lastElementType = "sign";
             if(isVisible) makeVisible();
             if(ok){visibleAction("undo add sign ", "sign");}
-        } catch(TownException e){ok = false;}
+        } catch(TownException e){
+            ok = false;
+            raiseError(e.getMessage());
+        }
     }
     
     /**
@@ -744,6 +868,7 @@ public class Town{
     
     /*
      * Checks if the given location is overlaping with another one 
+     * @param a the another location
      */
     private boolean isCollisioning(Location a){
         boolean isCollisioning = false;
@@ -758,6 +883,8 @@ public class Town{
     
     /*
      * records all all visible actions performed in the simulator   
+     * @param message the last visible action that the simulator did
+     * @param object the type of element of that action
      */
     private void visibleAction(String message, String object){
         String key = "";
@@ -817,16 +944,6 @@ public class Town{
         for(T i: a){
             System.out.print(""+i+" ");
         }System.out.println();
-    }
-
-    public void test(){
-        addLocation("blue",100,100);
-        addLocation("red",200,100);
-        addLocation("green",100,200);
-        addStreet("prudent","blue","red");
-        addStreet("blue","green");
-        addSign("blue","red");
-        addSign("blue","green");
     }
 }
 
