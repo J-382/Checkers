@@ -819,6 +819,6 @@ public class Town{
         }System.out.println();
     }
 
-    /*A ver si hace commit esta pendejada*/
+    /*A ver si hace commit esta pendejada x2*/
 }
 
