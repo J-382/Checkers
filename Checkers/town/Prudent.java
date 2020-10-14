@@ -26,4 +26,13 @@ public class Prudent extends Street{
         }
         return newSign;
     }
+    
+    @Override
+    public String getType(){
+        return "prudent";
+    }
+    
+    public void changeColor(){
+        super.changeColor("ruby");
+    }
 }

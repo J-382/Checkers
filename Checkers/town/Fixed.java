@@ -29,4 +29,12 @@ public class Fixed extends Sign{
     public String getType(){
         return "fixed";
     }
+    
+    /**
+      * Changes the sign's color to the standard.
+      */
+    public void changeColor(){
+        colorSign = "pearly purple";
+        sign.changeColor(colorSign);        
+    }
 }

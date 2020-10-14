@@ -54,7 +54,11 @@ public class Street{
         color = newColor;
         street.changeColor(newColor);
     }
-
+    
+    public void changeColor(){
+        street.changeColor("black");
+    }
+    
     /**
      * Returns the first location's color
      * @return A string with the RGB first location's color

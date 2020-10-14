@@ -19,7 +19,7 @@ public class Town{
     private HashMap<String,Location> locations;
     private HashMap<String,Street> streets;
     private ArrayList<String> usefulThings, deadEnd;
-    private boolean ok, isVisible,unReAction, slow;
+    private boolean ok, isVisible,unReAction, slow, simulating;
     private Location lastLocation;
     private Street lastStreet;
     private String[] lastSign;
@@ -49,6 +49,7 @@ public class Town{
         unReAction = true;
         this.slow = slow;
         lastElementType = "null";
+        simulating = false;
         ok = true;
     }
     
@@ -99,6 +100,8 @@ public class Town{
      */
     public Town(String[] input, boolean slow){
         this(1000,1000,slow);
+        makeVisible();
+        simulating = true;
         String[] instructions = input;
         int l = Integer.parseInt(instructions[0].split(" ")[0]), s = Integer.parseInt(instructions[0].split(" ")[1]);
         Random r = new Random();
@@ -811,7 +814,7 @@ public class Town{
                 for(String j: i.signsKeys()) if(!lastElementType.equals("sign") || !j.equals(lastSign[1])) i.getSign(j).makeVisible();
             }
             for(Location i: locations.values()) if(!lastElementType.equals("location") || !i.equals(lastLocation)) {i.makeVisible();}
-            canvas.wait(1000);
+            canvas.wait(1500);
             if(lastElementType.equals("location")) lastLocation.makeVisible();
             else if(lastElementType.equals("street")) lastStreet.makeVisible();
             else if(lastElementType.equals("sign")) streets.get(lastSign[0]).getSign(lastSign[1]).makeVisible();
@@ -869,8 +872,10 @@ public class Town{
       */
     private void raiseError(String text){
         if(isVisible){
-            Toolkit.getDefaultToolkit().beep(); 
-            JOptionPane.showMessageDialog(null, text,"Error",JOptionPane.ERROR_MESSAGE);
+            if(!simulating){
+                Toolkit.getDefaultToolkit().beep(); 
+                JOptionPane.showMessageDialog(null, text,"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         ok = false;
     }
@@ -939,7 +944,7 @@ public class Town{
             try{
                 String identifier = vertex.get(i).compareTo(father[i])<0?(vertex.get(i)+"-"+father[i]):(father[i]+"-"+vertex.get(i));
                 usefulThings.add(identifier);
-                if(!(lastStreet==streets.get(identifier))) streets.get(identifier).changeColor("black");
+                if(!(lastStreet==streets.get(identifier))) streets.get(identifier).changeColor();
             }
             catch(Exception e){}
         }
@@ -953,6 +958,19 @@ public class Town{
         for(T i: a){
             System.out.print(""+i+" ");
         }System.out.println();
+    }
+    
+    public void test(){
+        addLocation("blue",200,100);
+        addLocation("red",100,100);
+        addLocation("green",100,200); 
+        addStreet("blue","red");
+        addStreet("red","green");
+        addStreet("blue","green");
+        addSign("blue","red");
+        addSign("bouncy","red","green");
+        addSign("fixed","blue","green");
+        addSign("red","blue");
     }
 }
 

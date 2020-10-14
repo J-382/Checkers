@@ -6,4 +6,12 @@ comment1.target=Prudent(Location,\ Location)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Silent\r\n
 comment2.params=signType\ identifier
 comment2.target=Sign\ addSign(java.lang.String,\ java.lang.String)
+<<<<<<< HEAD
+comment3.params=
+comment3.target=java.lang.String\ getType()
+comment4.params=
+comment4.target=void\ changeColor()
+numComments=5
+=======
 numComments=3
+>>>>>>> master

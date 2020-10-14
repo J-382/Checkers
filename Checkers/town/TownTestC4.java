@@ -144,7 +144,6 @@ public class TownTestC4{
         int maxNumberStreet = ((Locked) townC4.getLastLocation()).getMaxNumberStreets();
         String streetType = ((Locked) townC4.getLastLocation()).getAllowedStreetType();
         for(int i=0; i<16; i++){
-            System.out.println(Canvas.colorsList()[i]);
             townC4.addLocation(Canvas.colorsList()[i],(1+i)*50,(1+i)*50);
         }
         for(int i=0; i<16; i++){

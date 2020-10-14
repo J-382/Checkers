@@ -11,8 +11,8 @@ import java.util.*;
 public class Sign{
     private int x,y;
     private Rectangle square;
-    private Circle sign,frame;
-    private String colorSign;
+    protected Circle sign,frame;
+    protected String colorSign;
     protected final Street street;
     private String name;
     /**
