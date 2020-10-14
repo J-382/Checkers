@@ -11,10 +11,10 @@ import java.util.PriorityQueue;
  * @version 27/08/2020
  */
 public class Location{
-    // instance variables - replace the example below with your own
     protected int x,y;
     protected String color;
     protected Circle location,frame;
+    protected int numberStreets;        
     /**
      * Constructor of the location given certain information
      * @param color written in RGBa format
@@ -28,6 +28,7 @@ public class Location{
         this.color = color;
         this.x = x;
         this.y = y;
+        numberStreets = 0;
         makeInvisible();
     }
     
@@ -91,11 +92,22 @@ public class Location{
     public boolean canHaveStreets(){
         return true;
     }
-    
+
     /**
      * Returns the type of the location
       */
     public String getType(){
         return "normal";
+    }
+    
+    /**
+     * Returns the type of the streets allowed by this location
+      */
+    public String getAllowedStreetType(){
+        return "anyone";
+    }
+    
+    public void addStreet(){
+        numberStreets++;
     }
 }

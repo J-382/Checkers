@@ -7,8 +7,7 @@ package town;
  * @author Angie Medina - Jose Perez 
  * @version 4/10/2020
  */
-public class Fixed extends Sign
-{
+public class Fixed extends Sign{
     /**
      * Constructor for objects of class Fixed
      */
@@ -18,6 +17,11 @@ public class Fixed extends Sign
     
     @Override
     public boolean remove(){
+        return false;
+    }
+    
+    @Override
+    public boolean canBeRemoved(){
         return false;
     }
     

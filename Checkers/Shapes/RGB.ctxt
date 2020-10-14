@@ -1,9 +1,8 @@
 #BlueJ class context
 comment0.target=RGB
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ RGB\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Provides\ a\ conversor\ of\ colors\r\n\ \r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 27/08/2020\r\n
 comment1.params=
 comment1.target=RGB()
-comment1.text=\r\n\ Provides\ a\ conversor\ of\ colors,\ given\ a\ color\ name\ it\ will\ return\ its\ equivalent\ to\ RGB\ format\r\n
 comment2.params=color
 comment2.target=java.lang.String\ getRGB(java.lang.String)
 comment2.text=\r\n\ Returns\ the\ RGB\ format\ for\ the\ given\ color.\r\n\ @param\ color\ A\ string\ with\ the\ color's\ name\r\n\ @returns\ String\ with\ RGB\ format\ for\ the\ given\ color\r\n
@@ -12,4 +11,5 @@ comment3.target=void\ showColors()
 comment3.text=\r\n\ Shows\ a\ window\ with\ a\ list\ of\ available\ colors.\ \ \r\n
 comment4.params=mode
 comment4.target=void\ setTransparencyMode(boolean)
+comment4.text=\r\n\ Set\ the\ transparencty\ mode\r\n\ @param\ mode\ true\ if\ the\ user\ wants\ the\ figure\ to\ be\ transparent\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ false\ otherwise\r\n
 numComments=5

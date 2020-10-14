@@ -18,12 +18,7 @@ public class Silent extends Street
     }
     
     @Override
-    public void addSign(String signType, String identifier){
-        TownException Exc = new TownException(TownException.ADD_TO_SILENTSTREET);
-    }
-    
-    @Override
-    public String getType(){
-        return "silent";
+    public boolean canHaveSigns(){
+        return false;
     }
 }

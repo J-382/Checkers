@@ -4,11 +4,10 @@ package town;
 /**
  * A location that don't allow streets to be added to it
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Angie Medina - Jose Perez
+ * @version 05/10/20 
  */
-public class Isolated extends Location
-{
+public class Isolated extends Location{
     /**
      * Constructor of the location given certain information
      * @param color written in RGBa format
@@ -17,11 +16,6 @@ public class Isolated extends Location
      */
     public Isolated(String color, int x, int y){
         super(color,x,y);
-    }
-    
-    @Override
-    public String getType(){
-        return "isolated";
     }
     
     @Override

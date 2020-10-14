@@ -99,6 +99,14 @@ public class TownTestC2
         assertEquals(contador, townC2.allLocations().length + townC2.allStreets().length);
     }
     
+    @Test
+    public void deberiaCrearDadasCantidades(){
+        int nLocations = 3, nStreets = 2, nSigns = 1;
+        int contador = nLocations + nStreets + nSigns;
+        townC2 = new Town(500, 500, nLocations, nStreets, nSigns, false);
+        assertEquals(contador, townC2.allLocations().length + townC2.allStreets().length + townC2.allSigns().length);
+    }
+    
     // Pruebas del segundo miniciclo: add/delete location
     @Test
     public void deberiaAgregarUnaLocacion(){
@@ -360,12 +368,7 @@ public class TownTestC2
         townC2 = new Town(500, 500);
         townC2.makeVisible();
         assertTrue(townC2.isVisible());
-    }
-
-    
-    // Pruebas del 4to ciclo
-    
-    
+    }    
     
     /**
      * Tears down the test fixture.

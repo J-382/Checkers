@@ -29,6 +29,7 @@ public class Street{
         street = new Line(location1.getLocation()[0],location1.getLocation()[1],location2.getLocation()[0],location2.getLocation()[1]);
         signs = new HashMap<String,Sign>();
         color = "gold";
+        changeColor("gold");
     }
 
     /**
@@ -108,11 +109,19 @@ public class Street{
      * @param signType type of the new sign
      * @param identifier identifier of the new sign
      */
-    public void addSign(String signType, String identifier){
-        TownException Exc;
+    public Sign addSign(String signType, String identifier){
+        /*TownException Exc;
         if(signType.equals("normal")) signs.put(identifier,new Sign(identifier,this));
         else if(signType.equals("bouncy")) signs.put(identifier,new Bouncy(identifier,this));
-        else Exc = new TownException(TownException.INVALID_TYPE+"sign");
+        else if(signType.equals("fixed")) signs.put(identifier, new Fixed(identifier, this));
+        else Exc = new TownException(TownException.INVALID_TYPE+"sign");*/
+        Sign lastSign;
+        if(signType.equals("fixed")) lastSign =  new Fixed(identifier, this);
+        else if(signType.equals("bouncy")) lastSign = new Bouncy(identifier, this);
+        else{lastSign = new Sign(identifier, this);}
+        lastSign.changeColorIni();
+        signs.put(identifier, lastSign);
+        return lastSign;
     }
     
     /**
@@ -129,10 +138,11 @@ public class Street{
     }
     
     /**
-     * Returns the street's type
-     * @return String contains the street's type
-       */
-    public String getType(){
-        return "normal";
+     * Return if the street can have signs
+     * @return true if the street can have signs
+     *          false otherwise
+     */
+    public boolean canHaveSigns(){
+        return true;
     }
 }
