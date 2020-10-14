@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import Shapes.*;
 /**
  * The test class TownTestC4.
  *
@@ -136,6 +136,36 @@ public class TownTestC4{
         }
     }
     
+    @Test
+    public void noDeberianHaberMasDeLaCantidadMaximaPermitida(){
+        townC4 = new Town(1000, 1000);
+        townC4.addLocation("locked", "blue", 0, 0);
+        //  townC4.makeVisible();
+        int maxNumberStreet = ((Locked) townC4.getLastLocation()).getMaxNumberStreets();
+        String streetType = ((Locked) townC4.getLastLocation()).getAllowedStreetType();
+        for(int i=0; i<16; i++){
+            System.out.println(Canvas.colorsList()[i]);
+            townC4.addLocation(Canvas.colorsList()[i],(1+i)*50,(1+i)*50);
+        }
+        for(int i=0; i<16; i++){
+            townC4.addStreet(streetType,"blue",Canvas.colorsList()[i]);
+        }
+        assertEquals(maxNumberStreet,townC4.allStreets().length);
+    }
+    
+    @Test
+    public void noDeberiaAceptarMasDeUnTipoDeCalle(){
+        townC4 = new Town(1000, 1000);
+        townC4.addLocation("locked", "blue", 100, 100);
+        townC4.addLocation("green", 100, 200);
+        townC4.addLocation("red", 200, 100);
+        townC4.addLocation("yellow", 200, 200);
+        townC4.addStreet("silent","green","blue");
+        townC4.addStreet("prudent","red","blue");
+        townC4.addStreet("yellow","blue");
+        assertEquals(townC4.allStreets().length, 1);
+    }
+    
     // Pruebas del segundo mini-ciclo: add / delete location
     @Test
     public void segunMPdeberiaVoltearLaUbicacion(){
@@ -200,7 +230,7 @@ public class TownTestC4{
         townC4.delSign("blue","red");
         assertEquals(desiredAns,townC4.allSigns());
     }
-
+    
     /**
      * Tears down the test fixture.
      *
