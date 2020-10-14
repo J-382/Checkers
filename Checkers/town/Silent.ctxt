@@ -6,7 +6,4 @@ comment1.target=Silent(Location,\ Location)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Silent\r\n
 comment2.params=
 comment2.target=boolean\ canHaveSigns()
-comment2.text=@Override\r\n\ \ \ \ public\ Sign\ addSign(String\ signType,\ String\ identifier){\r\n\ \ \ \ \ \ \ \ TownException\ Exc\ \=\ new\ TownException(TownException.ADD_TO_SILENTSTREET);\r\n\ \ \ \ \ \ \ \ return\ null;\r\n}
-comment3.params=
-comment3.target=java.lang.String\ getType()
-numComments=4
+numComments=3

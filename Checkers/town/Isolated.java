@@ -7,8 +7,7 @@ package town;
  * @author Angie Medina - Jose Perez
  * @version 05/10/20 
  */
-public class Isolated extends Location
-{
+public class Isolated extends Location{
     /**
      * Constructor of the location given certain information
      * @param color written in RGBa format
@@ -17,11 +16,6 @@ public class Isolated extends Location
      */
     public Isolated(String color, int x, int y){
         super(color,x,y);
-    }
-    
-    @Override
-    public String getType(){
-        return "isolated";
     }
     
     @Override

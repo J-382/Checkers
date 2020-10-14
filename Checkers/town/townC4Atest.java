@@ -52,15 +52,6 @@ public class townC4Atest{
         String[][] allSigns = townC4.allSigns();
     }
     
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown(){
-    }
-
     @Test
     public void test1(){
         try{
@@ -69,6 +60,15 @@ public class townC4Atest{
             String[] signs = {"normal", "bouncy", "fixed"};
             Town townC4 = new Town(500, 500, locations, streets, signs);
         }catch(TownException e){}
+    }
+    
+    /**
+     * Tears down the test fixture.
+     *
+     * Called after every test case method.
+     */
+    @After
+    public void tearDown(){
     }
 }
 
