@@ -157,6 +157,13 @@ public class Sign{
     }
     
     /**
+     * Returns if the sign can be removed
+     */
+    public boolean canBeRemoved(){
+        return true;
+    }
+    
+    /**
      * Returns the sign's type
      * @returns String contains the sign's type
      */

@@ -149,12 +149,4 @@ public class Street{
     public boolean canHaveSigns(){
         return true;
     }
-    
-    /**
-     * Returns the street's type
-     * @return String contains the street's type
-       */
-    public String getType(){
-        return "normal";
-    }
 }

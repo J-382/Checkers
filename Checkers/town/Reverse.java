@@ -23,9 +23,4 @@ public class Reverse extends Location
     public void changeFrame(){
         frame.changeColor("green sheen");
     }
-    
-    @Override
-    public String getType(){
-        return "reverse";
-    }
 }

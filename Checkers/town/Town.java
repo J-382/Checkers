@@ -261,7 +261,7 @@ public class Town{
         }
     }
     
-    /**
+    /*
      * Checks if the wanted location can be added to the town, if thats the case creates the location desired.
      * 2nd mini cicle: add / delete location
      * @param color is written in RGBa format
@@ -434,7 +434,7 @@ public class Town{
         boolean canDel = true;
         if(streets.containsKey(identifier)){
             Street street = streets.get(identifier);
-            for(String i: street.signsKeys()) if(street.getSign(i).getType().equals("fixed")) canDel = false;
+            for(String i: street.signsKeys()) if(!street.getSign(i).canBeRemoved()) canDel = false;
             if(canDel){
                 for(String i: street.signsKeys()){
                     delSign(i.split("-")[0],i.split("-")[1]);
@@ -475,7 +475,7 @@ public class Town{
      *                       EXISTING_SIGN,      if the sign is already added in the town;
      *                       WRONG_SIGN_TYPE,    if the signs's type is not valid;
      */
-    public void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
+    private void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "fixed", "bouncy"};
        ArrayList<String> validSigns = new ArrayList<String>(Arrays.asList(valid));
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
@@ -524,7 +524,7 @@ public class Town{
             ok = true;
             lastElementType = "sign";
             if(isVisible) makeVisible();
-            if(ok){visibleAction("undo add sign ", "sign");}
+            visibleAction("undo add sign ", "sign");
         } catch(TownException e){
             ok = false;
             raiseError(e.getMessage());
@@ -580,7 +580,7 @@ public class Town{
      * @param action the list of visible actions made by the town
      * @param ur a string idicating if it desire to redo or undo
      */
-    public void undoRedoActions(String[] action, String ur){
+    private void undoRedoActions(String[] action, String ur){
         if (ur.equals("redo")){
             if (action[1].equals("del")) action[1] = "add";
             else{action[1] = "del";}

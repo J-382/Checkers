@@ -92,7 +92,7 @@ public class Location{
     public boolean canHaveStreets(){
         return true;
     }
-    
+
     /**
      * Returns the type of the location
       */
