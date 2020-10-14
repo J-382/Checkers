@@ -31,4 +31,8 @@ public class Prudent extends Street{
     public String getType(){
         return "prudent";
     }
+    
+    public void changeColor(){
+        super.changeColor("ruby");
+    }
 }

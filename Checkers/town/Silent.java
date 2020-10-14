@@ -32,4 +32,8 @@ public class Silent extends Street
     public String getType(){
         return "silent";
     }
+     
+    public void changeColor(){
+        super.changeColor("pearly purple");
+    }
 }
