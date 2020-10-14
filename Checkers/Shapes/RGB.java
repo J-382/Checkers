@@ -218,6 +218,9 @@ public class RGB{
             case "ruby":
                 rgb = "170 64 105";
                 break;
+            case "nice green":
+                rgb = "99 235 132";
+                break;
                 
             default:
                 rgb = "No matches";

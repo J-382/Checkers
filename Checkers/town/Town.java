@@ -271,7 +271,7 @@ public class Town{
      *                       LOCATION_COLLISION,  if the location's positions are already occupied
      */
     private void checkLocation(String color, int x, int y, String type) throws TownException{
-       String[] valid = {"normal", "reverse", "isolated"};
+       String[] valid = {"normal", "reverse", "isolated","locked"};
        ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList(valid));
        if(!Arrays.asList(Canvas.colorsList()).contains(color)) throw new TownException(TownException.COLOR_UNAVAILABLE);
        else if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
@@ -280,6 +280,7 @@ public class Town{
        if (type.equals("normal")) lastLocation = new Location(color, x, y);
        else if (type.equals("reverse")) lastLocation = new Reverse(color, x, y);
        else if (type.equals("isolated")) lastLocation = new Isolated(color, x, y);
+       else if (type.equals("locked")) lastLocation = new Locked(color, x, y);
        if(isCollisioning(lastLocation)){
            delLocation(lastLocation.getColor());
            throw new TownException(TownException.LOCATION_COLLISION);
@@ -367,6 +368,10 @@ public class Town{
        else if(!(validStreets.contains(type))) throw new TownException(TownException.WRONG_STREET_TYPE);
        Location lA = locations.get(locationA), lB = locations.get(locationB);
        if (!lA.canHaveStreets() || !lB.canHaveStreets()) throw new TownException(TownException.LOCATION_NO_STREET);
+       if (!lA.getAllowedStreetType().equals("anyone") && !lA.getAllowedStreetType().equals(type))throw new TownException("Paila");
+       if (!lB.getAllowedStreetType().equals("anyone") && !lB.getAllowedStreetType().equals(type))throw new TownException("Paila");
+       lA.addStreet();
+       lB.addStreet();
        
        if(lastStreet != null) lastStreet.changeColor("black");
        
@@ -852,6 +857,10 @@ public class Town{
      */
     public boolean isVisible(){
         return isVisible;
+    }
+    
+    public Location getLastLocation(){
+        return lastLocation;
     }
     
     /*
