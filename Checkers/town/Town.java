@@ -25,7 +25,7 @@ public class Town{
     private String[] lastSign;
     private String lastElementType;
     private ArrayList<String> actions;
-    private static final ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList("normal", "isolated", "reverse"));
+    private static final ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList("normal", "isolated", "reverse", "locked"));
     private static final ArrayList<String> validStreets = new ArrayList<String>(Arrays.asList("normal", "silent", "prudent"));
     private static final ArrayList<String> validSigns = new  ArrayList<String>(Arrays.asList("normal", "bouncy", "fixed"));
     /** 
@@ -273,8 +273,6 @@ public class Town{
      *                       LOCATION_COLLISION,  if the location's positions are already occupied
      */
     private void checkLocation(String color, int x, int y, String type) throws TownException{
-       String[] valid = {"normal", "reverse", "isolated","locked"};
-       ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList(valid));
        if(!Arrays.asList(Canvas.colorsList()).contains(color)) throw new TownException(TownException.COLOR_UNAVAILABLE);
        if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
        if(!(validLocations.contains(type))) throw new TownException(TownException.WRONG_LOCATION_TYPE);
@@ -363,8 +361,6 @@ public class Town{
      *                       LOCATION_NO_STREET, if one of the locations can't have streets
      */
     private void checkStreet(String identifier, String locationA, String locationB, String type) throws TownException{
-       String[] valid = {"normal", "silent", "prudent"};
-       ArrayList<String> validStreets = new ArrayList<String>(Arrays.asList(valid)); 
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB))){
            throw new TownException(TownException.LOCATION_NOT_FOUND);
        }
@@ -485,8 +481,6 @@ public class Town{
      *                       WRONG_SIGN_TYPE,    if the signs's type is not valid;
      */
     private void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
-       String[] valid = {"normal", "fixed", "bouncy"};
-       ArrayList<String> validSigns = new ArrayList<String>(Arrays.asList(valid));
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
        else if(!streets.containsKey(streetIdentifier)) throw new TownException(TownException.STREET_NOT_FOUND);
        else if(streets.get(streetIdentifier).containsSign(signIdentifier)) throw new TownException(TownException.EXISTING_SIGN);
