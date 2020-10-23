@@ -1,5 +1,6 @@
 package town;
 
+import shapes.*;
 import java.util.*;
 import java.util.Arrays;
 import java.io.*;
@@ -38,7 +39,14 @@ public class TownContest
      */
     public void simulate(String[] input, boolean slow){
         ok = true;
+        String[] signals = solve(input);
         Town simulator = new Town(input, slow);
+        String[] colors = RGB.colorsList;
+        Arrays.sort(colors);
+        for(int i = 1; i<signals.length;i++){
+            int a = Integer.parseInt(signals[i].split(" ")[0]),b = Integer.parseInt(signals[i].split(" ")[1]);
+            simulator.addSign(colors[a],colors[b]);
+        }
     }
     
     /**

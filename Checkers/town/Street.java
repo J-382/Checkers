@@ -153,4 +153,11 @@ public class Street{
     public String getType(){
         return "normal";
     }
+    
+    /**
+     * returns if the sign
+       */
+    public boolean addMore(){
+        return false;
+    }
 }

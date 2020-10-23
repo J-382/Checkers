@@ -30,4 +30,9 @@ public class Prudent extends Street{
     public void changeColor(){
         super.changeColor("ruby");
     }
+    
+    @Override
+    public boolean addMore(){
+        return true;
+    }
 }

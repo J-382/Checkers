@@ -8,4 +8,6 @@ comment2.params=signType\ identifier
 comment2.target=Sign\ addSign(java.lang.String,\ java.lang.String)
 comment3.params=
 comment3.target=void\ changeColor()
-numComments=4
+comment4.params=
+comment4.target=boolean\ addMore()
+numComments=5

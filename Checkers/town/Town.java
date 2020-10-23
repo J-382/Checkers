@@ -182,7 +182,7 @@ public class Town{
         }
         catch(TownException e){throw e;}
         for (String identifier : streetSigns){
-            if (streets.get(identifier) instanceof Prudent) contSigns += 1;
+            if (streets.get(identifier).addMore()) contSigns += 1;
             else{contSigns += 2;}
         }
         if(typeSigns.length > contSigns) throw new TownException(TownException.INVALID_NUMBER_DEADENDS);
@@ -277,14 +277,27 @@ public class Town{
        if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
        if(!(validLocations.contains(type))) throw new TownException(TownException.WRONG_LOCATION_TYPE);
        if(lastLocation != null) lastLocation.changeFrame();
-       if (type.equals("normal")) lastLocation = new Location(color, x, y);
-       else if (type.equals("reverse")) lastLocation = new Reverse(color, x, y);
-       else if (type.equals("isolated")) lastLocation = new Isolated(color, x, y);
-       else if (type.equals("locked")) lastLocation = new Locked(color, x, y);
+       lastLocation = Town.createLocation(color,x,y,type);
        if(isCollisioning(lastLocation)){
            delLocation(lastLocation.getColor());
            throw new TownException(TownException.LOCATION_COLLISION);
        }
+    }
+    
+    /**
+     * Creates a new location with the given params
+     * @param color is written in RGBa format
+     * @param x is the position on x axis
+     * @param y is the position on y axis
+     * @param type valid types: normal, reverse, isolate
+       */
+    public static Location createLocation(String color, int x, int y, String type){
+       Location location = null;
+       if (type.equals("normal")) location = new Location(color, x, y);
+       else if (type.equals("reverse")) location = new Reverse(color, x, y);
+       else if (type.equals("isolated")) location = new Isolated(color, x, y);
+       else if (type.equals("locked")) location = new Locked(color, x, y);
+       return location;
     }
     
     /**
@@ -382,10 +395,20 @@ public class Town{
        }
        lA.addStreet();lB.addStreet();
        if(lastStreet != null) lastStreet.changeColor("black");
-       
-       if (type.equals("normal")) lastStreet = new Street(lA, lB);
-       else if (type.equals("prudent")) lastStreet = new Prudent(lA, lB);
-       else if (type.equals("silent")) lastStreet = new Silent(lA, lB);
+       lastStreet = Town.createStreet(type,lA,lB);
+    }
+    
+    /**
+     * @param locationA first location's identifier
+     * @param locationB second location's identifier
+     * @param type valid types: normal, silent, prudent
+     */
+    public static Street createStreet(String type, Location lA, Location lB){
+        Street street = null;
+        if (type.equals("normal")) street = new Street(lA, lB);
+        else if (type.equals("prudent")) street = new Prudent(lA, lB);
+        else if (type.equals("silent")) street = new Silent(lA, lB);
+        return street;
     }
     
     /**
@@ -482,17 +505,17 @@ public class Town{
      */
     private void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
        if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
-       else if(!streets.containsKey(streetIdentifier)) throw new TownException(TownException.STREET_NOT_FOUND);
-       else if(streets.get(streetIdentifier).containsSign(signIdentifier)) throw new TownException(TownException.EXISTING_SIGN);
-       else if(!streets.get(streetIdentifier).canHaveSigns()) throw new TownException(TownException.STREET_NO_SIGN);
-       else if(!(validSigns.contains(type))) throw new TownException(TownException.WRONG_SIGN_TYPE);
+       if(!streets.containsKey(streetIdentifier)) throw new TownException(TownException.STREET_NOT_FOUND);
+       if(streets.get(streetIdentifier).containsSign(signIdentifier)) throw new TownException(TownException.EXISTING_SIGN);
+       if(!streets.get(streetIdentifier).canHaveSigns()) throw new TownException(TownException.STREET_NO_SIGN);
+       if(!(validSigns.contains(type))) throw new TownException(TownException.WRONG_SIGN_TYPE);
        
        if(lastSign != null) {
            streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
        }
        lastSign = new String[]{streetIdentifier,signIdentifier};
        streets.get(streetIdentifier).addSign(type, signIdentifier);
-       if(streets.get(streetIdentifier) instanceof Prudent){
+       if(streets.get(streetIdentifier).addMore()){
            String aux = signIdentifier.split("-")[1] + "-" + signIdentifier.split("-")[0];
            if(streets.get(streetIdentifier).signsKeys().contains(aux)){
                lastSign = new String[]{streetIdentifier,aux};
