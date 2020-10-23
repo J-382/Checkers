@@ -1,4 +1,4 @@
-package Shapes;
+package shapes;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -21,7 +21,8 @@ public class Circle extends Figure{
      * Create a new circle at default position with default color.
      */
     public Circle(int x, int y, String color){
-        super(x, y, color);
+        super(x, y, color, new Ellipse2D.Double(x, y, 
+                20, 20));
         diameter = 20;
     }
 
@@ -32,24 +33,12 @@ public class Circle extends Figure{
     public void changeSize(int newDiameter){
         erase();
         diameter = newDiameter;
+        figure = new Ellipse2D.Double(xPosition, yPosition, newDiameter, newDiameter);
         draw();
     }
     
-    /*
-     * Draw the circle with current specifications on screen.
-     */
-    public void draw(){
-        circle = new Ellipse2D.Double(xPosition, yPosition, diameter, diameter);
-        if(isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            canvas.draw(this, color, 
-                new Ellipse2D.Double(xPosition, yPosition, 
-                diameter, diameter));
-            canvas.wait(10);
-        }
-    }
     
     public Shape getShape(){
-        return (Shape) circle;
+        return (Shape) figure;
     }
 }

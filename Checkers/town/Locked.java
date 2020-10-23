@@ -21,7 +21,7 @@ public class Locked extends Location
     public Locked(String color, int x, int y){
         super(color,x,y);
         Random r = new Random();
-        maxNumberStreets = r.nextInt(9)+1;
+        maxNumberStreets = r.nextInt(9) + 1;
         allowedStreetType = new String[] {"silent","prudent","normal"}[r.nextInt(3)];
     }
     

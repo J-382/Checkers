@@ -1,4 +1,4 @@
-package Shapes;
+package shapes;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ public class Rectangle extends Figure{
      * Create a new rectangle at default position with default color.
      */
     public Rectangle(int x, int y){
-        super(x, y, "magenta");
+        super(x, y, "magenta", new java.awt.Rectangle(x, y, 40, 30));
         height = 30;
         width = 40;
     }
@@ -34,20 +34,8 @@ public class Rectangle extends Figure{
         erase();
         height = newHeight;
         width = newWidth;
+        figure = new java.awt.Rectangle(xPosition, yPosition, newWidth, newHeight);
         draw();
-    }
-    
-
-    /**
-     * Draw the rectangle with current specifications on screen.
-     */
-    public void draw() {
-        if(isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, width, height));
-            canvas.wait(10);
-        }
     }
 }
 

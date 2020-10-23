@@ -1,5 +1,5 @@
 package town;
-import Shapes.*;
+import shapes.*;
 
 
 import static org.junit.Assert.*;

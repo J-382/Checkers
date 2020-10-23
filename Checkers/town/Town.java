@@ -1,6 +1,6 @@
 package town;
 
-import Shapes.*;
+import shapes.*;
 import java.math.*;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -100,7 +100,6 @@ public class Town{
      */
     public Town(String[] input, boolean slow){
         this(1000,1000,slow);
-        makeVisible();
         simulating = true;
         String[] instructions = input;
         int l = Integer.parseInt(instructions[0].split(" ")[0]), s = Integer.parseInt(instructions[0].split(" ")[1]);
@@ -277,8 +276,8 @@ public class Town{
        String[] valid = {"normal", "reverse", "isolated","locked"};
        ArrayList<String> validLocations = new ArrayList<String>(Arrays.asList(valid));
        if(!Arrays.asList(Canvas.colorsList()).contains(color)) throw new TownException(TownException.COLOR_UNAVAILABLE);
-       else if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
-       else if(!(validLocations.contains(type))) throw new TownException(TownException.WRONG_LOCATION_TYPE);
+       if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
+       if(!(validLocations.contains(type))) throw new TownException(TownException.WRONG_LOCATION_TYPE);
        if(lastLocation != null) lastLocation.changeFrame();
        if (type.equals("normal")) lastLocation = new Location(color, x, y);
        else if (type.equals("reverse")) lastLocation = new Reverse(color, x, y);
@@ -366,16 +365,26 @@ public class Town{
     private void checkStreet(String identifier, String locationA, String locationB, String type) throws TownException{
        String[] valid = {"normal", "silent", "prudent"};
        ArrayList<String> validStreets = new ArrayList<String>(Arrays.asList(valid)); 
-       if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
-       else if(streets.containsKey(identifier))throw new TownException(TownException.EXISTING_STREET);
-       else if(!(validStreets.contains(type))) throw new TownException(TownException.WRONG_STREET_TYPE);
+       if(!(locations.containsKey(locationA) && locations.containsKey(locationB))){
+           throw new TownException(TownException.LOCATION_NOT_FOUND);
+       }
+       if(streets.containsKey(identifier)){
+           throw new TownException(TownException.EXISTING_STREET);
+       }
+       if(!(validStreets.contains(type))) {
+           throw new TownException(TownException.WRONG_STREET_TYPE);
+       }
        Location lA = locations.get(locationA), lB = locations.get(locationB);
-       if (!lA.canHaveStreets() || !lB.canHaveStreets()) throw new TownException(TownException.LOCATION_NO_STREET);
-       if (!lA.getAllowedStreetType().equals("anyone") && !lA.getAllowedStreetType().equals(type))throw new TownException("Paila");
-       if (!lB.getAllowedStreetType().equals("anyone") && !lB.getAllowedStreetType().equals(type))throw new TownException("Paila");
-       lA.addStreet();
-       lB.addStreet();
-       
+       if (!lA.canHaveStreets() || !lB.canHaveStreets()) {
+           throw new TownException(TownException.LOCATION_NO_STREET);
+       }
+       if (!lA.getAllowedStreetType().equals("anyone") && !lA.getAllowedStreetType().equals(type)){
+           throw new TownException(TownException.WRONG_STREET_TYPE_SIGN);
+       }
+       if (!lB.getAllowedStreetType().equals("anyone") && !lB.getAllowedStreetType().equals(type)){
+           throw new TownException(TownException.WRONG_STREET_TYPE_SIGN);
+       }
+       lA.addStreet();lB.addStreet();
        if(lastStreet != null) lastStreet.changeColor("black");
        
        if (type.equals("normal")) lastStreet = new Street(lA, lB);

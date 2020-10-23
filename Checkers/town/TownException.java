@@ -7,12 +7,7 @@ package town;
  * @author Angie Medina - Jose Perez
  * @version 04/10/2020
  */
-public class TownException extends Exception{
-    static public final String ADD_TO_SILENTSTREET = "A silent street can't have signs";
-    static public final String DEL_FIXEDSIGN = "A fixed sign can't be deleted";
-    static public final String ADD_TO_ISOLATEDLOCATION = "An isolated location can't have streets";
-    static public final String INVALID_TYPE = "Invalid type of ";
-    
+public class TownException extends Exception{    
     public static final String WRONG_LOCATION_TYPE = "That type is not a valid Location type.";
     public static final String WRONG_STREET_TYPE = "That type is not a valid Street type.";
     public static final String WRONG_SIGN_TYPE = "That type is not a valid Sign type.";
@@ -27,6 +22,7 @@ public class TownException extends Exception{
     public static final String STREET_NO_SIGN = "That street type can't have signs.";
     static public final String INVALID_NUMBER_STREETS = "The number of streets can't be greater than (numberLocations-1)!";
     static public final String INVALID_NUMBER_DEADENDS = "The number of deadEnds can't be greater than 2*numberStreets";
+    static public final String WRONG_STREET_TYPE_SIGN = "This street cant't have that type of sign.";
     /**
      * Genera una excepcion con el mensaje dado
        */

@@ -1,6 +1,6 @@
 package town;
 
-import Shapes.*;
+import shapes.*;
 import java.util.Random;
 import java.awt.*;
 import java.util.PriorityQueue;

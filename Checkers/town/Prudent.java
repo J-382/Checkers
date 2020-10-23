@@ -19,17 +19,12 @@ public class Prudent extends Street{
     public Sign addSign(String signType, String identifier){
         Sign newSign;
         String reversedIdentifier = identifier.split("-")[1]+"-"+identifier.split("-")[0];
-        newSign = super.addSign(signType,identifier);
+        newSign = super.addSign("fixed",identifier);
         if(!super.containsSign(reversedIdentifier)) {
             newSign.changeColor();
-            newSign = super.addSign(signType,reversedIdentifier);
+            newSign = super.addSign("fixed",reversedIdentifier);
         }
         return newSign;
-    }
-    
-    @Override
-    public String getType(){
-        return "prudent";
     }
     
     public void changeColor(){

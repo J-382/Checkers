@@ -1,4 +1,4 @@
-package Shapes;
+package shapes;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;

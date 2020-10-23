@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Figure
 comment0.text=\r\n\ A\ figure\ that\ can\ be\ manipulated\ and\ that\ draws\ itself\ on\ a\ canvas.\r\n\r\n\ @author\ Angie\ Medina\ -\ Jose\ Perez\r\n\ @version\ 02/10/20\r\n
-comment1.params=x\ y\ color
-comment1.target=Figure(int,\ int,\ java.lang.String)
+comment1.params=x\ y\ color\ figure
+comment1.target=Figure(int,\ int,\ java.lang.String,\ java.awt.Shape)
 comment10.params=distance
 comment10.target=void\ slowMoveHorizontal(int)
 comment10.text=\r\n\ Slowly\ move\ the\ figure\ horizontally.\r\n\ @param\ distance\ the\ desired\ distance\ in\ pixels\r\n
@@ -11,12 +11,13 @@ comment11.target=void\ slowMoveVertical(int)
 comment11.text=\r\n\ Slowly\ move\ the\ figure\ vertically\r\n\ @param\ distance\ the\ desired\ distance\ in\ pixels\r\n
 comment12.params=newColor
 comment12.target=void\ changeColor(java.lang.String)
-comment12.text=\r\n\ Change\ the\ color.\ \r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
+comment12.text=\r\n\ Change\ the\ color.\ \r\n\ @param\ newColor\ written\ in\ RGB\ code\r\n
 comment13.params=
 comment13.target=java.lang.String\ getColor()
 comment13.text=\r\n\ Returns\ the\ figure's\ current\ color\r\n\ @return\ A\ string\ with\ the\ figure's\ current\ color.\r\n
 comment14.params=
 comment14.target=void\ draw()
+comment14.text=\r\n\ Draw\ the\ circle\ with\ current\ specifications\ on\ screen.\r\n
 comment15.params=
 comment15.target=void\ erase()
 comment15.text=\r\n\ Erase\ the\ figure\ on\ screen.\r\n

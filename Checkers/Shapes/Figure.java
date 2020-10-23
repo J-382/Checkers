@@ -1,5 +1,7 @@
-package Shapes;
+package shapes;
 
+import java.awt.*;
+import java.awt.geom.*;
 
 /**
  * A figure that can be manipulated and that draws itself on a canvas.
@@ -12,12 +14,14 @@ public abstract class Figure{
     protected int yPosition;
     protected String color;
     protected boolean isVisible;
+    protected Shape figure;
 
-    public Figure(int x,int y,String color){
+    public Figure(int x,int y,String color, Shape figure){
         xPosition = x;
         yPosition = y;
         this.color = color;
         isVisible = false;
+        this.figure = figure;
     }
     
     /**
@@ -123,10 +127,10 @@ public abstract class Figure{
             draw();
         }
     }
+    
     /**
      * Change the color. 
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black".
+     * @param newColor written in RGB code
      */
     public void changeColor(String newColor){
         color = newColor;
@@ -141,7 +145,16 @@ public abstract class Figure{
         return color;
     }
     
-    public abstract void draw();
+    /*
+     * Draw the circle with current specifications on screen.
+     */
+    public void draw(){     
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, color, figure);
+            canvas.wait(10);
+        }
+    }
     
     /**
      * Erase the figure on screen.

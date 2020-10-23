@@ -1,6 +1,6 @@
 package town;
 
-import Shapes.*;
+import shapes.*;
 import java.awt.*;
 import java.awt.geom.*;
 import java.math.*;
@@ -148,5 +148,9 @@ public class Street{
      */
     public boolean canHaveSigns(){
         return true;
+    }
+    
+    public String getType(){
+        return "normal";
     }
 }

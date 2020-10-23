@@ -4,7 +4,6 @@ comment0.text=\r\n\ Pretends\ to\ simulate\ a\ street\r\n\ \r\n\ @author\ Angie\
 comment1.params=location1\ location2
 comment1.target=Street(Location,\ Location)
 comment1.text=\r\n\ Constructor\ of\ the\ street\ given\ certain\ information\r\n\ @param\ location1\ one\ of\ the\ location\ who's\ connected\ to\ the\ street\r\n\ @param\ location2\ one\ of\ the\ location\ who's\ connected\ to\ the\ street\r\n
-<<<<<<< HEAD
 comment10.params=key
 comment10.target=boolean\ containsSign(java.lang.String)
 comment10.text=\r\n\ Returns\ a\ boolean\ that\ indicates\ if\ the\ given\ key\ is\ associated\ with\ a\ signal\ of\ the\ street\r\n\ @returns\ boolean\ indicates\ if\ the\ given\ key\ is\ asociated\ with\ a\ signal\ of\ the\ street\r\n
@@ -22,21 +21,6 @@ comment14.target=boolean\ canHaveSigns()
 comment14.text=\r\n\ Return\ if\ the\ street\ can\ have\ signs\r\n\ @return\ true\ if\ the\ street\ can\ have\ signs\r\n\ \ \ \ \ \ \ \ \ \ false\ otherwise\r\n
 comment15.params=
 comment15.target=java.lang.String\ getType()
-comment15.text=\r\n\ Returns\ the\ street's\ type\r\n\ @return\ String\ contains\ the\ street's\ type\r\n
-=======
-comment10.params=
-comment10.target=java.util.ArrayList\ signsKeys()
-comment10.text=\r\n\ Returns\ an\ ArrayList\ with\ the\ identifiers\ of\ the\ street's\ signs\r\n\ @returns\ ArrayList\ with\ the\ identifiers\ of\ the\ street's\ signs\r\n
-comment11.params=signType\ identifier
-comment11.target=Sign\ addSign(java.lang.String,\ java.lang.String)
-comment11.text=\r\n\ Add\ a\ new\ sign\ with\ the\ given\ specification\r\n\ @param\ signType\ type\ of\ the\ new\ sign\r\n\ @param\ identifier\ identifier\ of\ the\ new\ sign\r\n
-comment12.params=identifier
-comment12.target=boolean\ removeSign(java.lang.String)
-comment12.text=\r\n\ Delete\ the\ sign\ associated\ with\ the\ given\ identifier\r\n\ @param\ identifier\ A\ string\ with\ the\ identifier\ associated\ with\ the\ sign\ to\ remove\r\n\ @returns\ boolean\ indicates\ if\ the\ sign\ was\ deleted\r\n
-comment13.params=
-comment13.target=boolean\ canHaveSigns()
-comment13.text=\r\n\ Return\ if\ the\ street\ can\ have\ signs\r\n\ @return\ true\ if\ the\ street\ can\ have\ signs\r\n\ \ \ \ \ \ \ \ \ \ false\ otherwise\r\n
->>>>>>> master
 comment2.params=
 comment2.target=void\ makeVisible()
 comment2.text=\r\n\ Make\ this\ line\ visible.\ If\ it\ was\ already\ visible,\ do\ nothing.\r\n
@@ -58,12 +42,6 @@ comment8.params=
 comment8.target=double\ getLength()
 comment8.text=\r\n\ Returns\ the\ length\ of\ the\ street\r\n\ @returns\ double\ with\ the\ length\ of\ the\ street\r\n
 comment9.params=key
-<<<<<<< HEAD
 comment9.target=Sign\ getSign(java.lang.String)
 comment9.text=\r\n\ Returns\ the\ sign\ associated\ to\ the\ given\ key\r\n\ @returns\ Sign\ sign\ associated\ to\ the\ given\ key\r\n
 numComments=16
-=======
-comment9.target=boolean\ containsSign(java.lang.String)
-comment9.text=\r\n\ Returns\ a\ boolean\ that\ indicates\ if\ the\ given\ key\ is\ associated\ with\ a\ signal\ of\ the\ street\r\n\ @returns\ boolean\ indicates\ if\ the\ given\ key\ is\ asociated\ with\ a\ signal\ of\ the\ street\r\n
-numComments=14
->>>>>>> master

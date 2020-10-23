@@ -1,4 +1,4 @@
-package Shapes;
+package shapes;
 
 import java.awt.*;
 
@@ -17,7 +17,8 @@ public class Triangle extends Figure{
      * Create a new triangle at default position with default color.
      */
     public Triangle(){
-        super(140, 15, "green");
+        super(140, 15, "green", new Polygon(new int[] {140, 140 + (40/2), 140 - (40/2)},
+            new int[] {15, 15 + 30, 15 + 30}, 3));
         height = 30;
         width = 40;
     }
@@ -32,18 +33,5 @@ public class Triangle extends Figure{
         height = newHeight;
         width = newWidth;
         draw();
-    }
-    
-    /**
-     * Draw the triangle with current specifications on screen.
-     */
-    public void draw(){
-        if(isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            int[] xpoints = { xPosition, xPosition + (width/2), xPosition - (width/2) };
-            int[] ypoints = { yPosition, yPosition + height, yPosition + height };
-            canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
-            canvas.wait(10);
-        }
     }
 }
