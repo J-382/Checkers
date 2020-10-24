@@ -26,9 +26,10 @@ public class TownContest
      */
     public String[] solve(String[] input){
         String[] aux = Arrays.copyOfRange(input,1,input.length);
-        HashMap<Integer, ArrayList<Integer>> graph = Graph.graphMaker(aux);
+        HashMap<Integer, ArrayList<Integer>> graphMap = Graph.graphMaker(aux);
         ok = true;
-        return Graph.solution(graph);
+        Graph graph = new Graph(graphMap);
+        return graph.solution();
     }
     
     /**

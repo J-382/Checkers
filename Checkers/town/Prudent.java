@@ -32,7 +32,7 @@ public class Prudent extends Street{
     }
     
     @Override
-    public boolean addMore(){
-        return true;
+    public boolean canAddMore(){
+        return false;
     }
 }

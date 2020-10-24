@@ -157,7 +157,7 @@ public class Street{
     /**
      * returns if the sign
        */
-    public boolean addMore(){
-        return false;
+    public boolean canAddMore(){
+        return true;
     }
 }

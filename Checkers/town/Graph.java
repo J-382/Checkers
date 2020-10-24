@@ -6,16 +6,16 @@ import java.awt.Toolkit;
 import java.util.PriorityQueue;
 import java.util.Random;
 /**
- * A graph class with some common graph algori
+ * A graph class with some common graph algorithm
  * 
  * @author Angie Medina - Jose Perez
  * @version 4/10/2020
  */
 public class Graph
 {
-    private static ArrayList<Tuple> deadEnds;
+    private ArrayList<Tuple> deadEnds;
     private HashMap<Integer, ArrayList<Integer>> graph;
-    private static HashMap<Integer, Integer> cnt;
+    private HashMap<Integer, Integer> cnt;
     // instance variables - replace the example below with your own
     /**
      * Constructor for objects of class Graph
@@ -41,7 +41,7 @@ public class Graph
      * Makes a minimum Spanning Tree with the current information in the simulator, 
      * then makes slightly transparent those streets and signs that don't belong to the M.S.T
      */
-    static public String[] mst(ArrayList<String> vertex, double[][] edges, ArrayList<Integer> components, int size){
+    public static String[] mst(ArrayList<String> vertex, double[][] edges, ArrayList<Integer> components, int size){
         /* A 2 elements tuple Class */
         class TupleD{
             public final double a; public final double b;
@@ -113,7 +113,7 @@ public class Graph
         return graphs;
     }
     
-    public static void findDeadEnds(HashMap<Integer, ArrayList<Integer>> graph){
+    public void findDeadEnds(){
         cnt = new HashMap<Integer, Integer>();
         Deque<Integer> qu = new ArrayDeque<Integer>();
         deadEnds = new ArrayList<Tuple>();
@@ -143,7 +143,7 @@ public class Graph
         }
     }
     
-    public static void dfs(HashMap<Integer, ArrayList<Integer>> graph, int father, int node){
+    public void dfs(int father, int node){
         Deque<Tuple> qu = new ArrayDeque<Tuple>();
         qu.add(new Tuple(father,node));
         while(!qu.isEmpty()){
@@ -160,8 +160,8 @@ public class Graph
         }
     }
     
-    public static String[] solution(HashMap<Integer, ArrayList<Integer>> graph){
-        findDeadEnds(graph);
+    public String[] solution(){
+        findDeadEnds();
         int cont = 0;
         for(int i: cnt.keySet()){
             if(cnt.get(i)==0){
@@ -169,7 +169,7 @@ public class Graph
                     deadEnds.add(new Tuple(i,graph.get(i).get(0)));
                     deadEnds.add(new Tuple(graph.get(i).get(0),i));
                 }
-                else{dfs(graph,-1,i);}
+                else{dfs(-1,i);}
             }
         }
         for(int i=0; i<deadEnds.size();i++){

@@ -9,5 +9,5 @@ comment2.target=Sign\ addSign(java.lang.String,\ java.lang.String)
 comment3.params=
 comment3.target=void\ changeColor()
 comment4.params=
-comment4.target=boolean\ addMore()
+comment4.target=boolean\ canAddMore()
 numComments=5

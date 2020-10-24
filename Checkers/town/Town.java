@@ -182,7 +182,7 @@ public class Town{
         }
         catch(TownException e){throw e;}
         for (String identifier : streetSigns){
-            if (streets.get(identifier).addMore()) contSigns += 1;
+            if (!streets.get(identifier).canAddMore()) contSigns += 1;
             else{contSigns += 2;}
         }
         if(typeSigns.length > contSigns) throw new TownException(TownException.INVALID_NUMBER_DEADENDS);
@@ -515,7 +515,7 @@ public class Town{
        }
        lastSign = new String[]{streetIdentifier,signIdentifier};
        streets.get(streetIdentifier).addSign(type, signIdentifier);
-       if(streets.get(streetIdentifier).addMore()){
+       if(!streets.get(streetIdentifier).canAddMore()){
            String aux = signIdentifier.split("-")[1] + "-" + signIdentifier.split("-")[0];
            if(streets.get(streetIdentifier).signsKeys().contains(aux)){
                lastSign = new String[]{streetIdentifier,aux};
@@ -808,8 +808,9 @@ public class Town{
             input[i] = auxLocations.indexOf(aString)+" "+auxLocations.indexOf(bString);
             i++;
         }
-        HashMap<Integer, ArrayList<Integer>> graph = Graph.graphMaker(input);
-        ArrayList<String> validSigns = new ArrayList<String>(Arrays.asList(Graph.solution(graph)));
+        HashMap<Integer, ArrayList<Integer>> graphMap = Graph.graphMaker(input);
+        Graph graph = new Graph(graphMap);
+        ArrayList<String> validSigns = new ArrayList<String>(Arrays.asList(graph.solution()));
         for(i=1; i<validSigns.size(); i++){
             String a = validSigns.get(i).split(" ")[0], b = validSigns.get(i).split(" ")[1], aux;
             aux = auxLocations.get(Integer.parseInt(a))+"-"+auxLocations.get(Integer.parseInt(b));
