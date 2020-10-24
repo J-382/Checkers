@@ -25,11 +25,6 @@ public class Fixed extends Sign{
         return false;
     }
     
-    @Override
-    public String getType(){
-        return "fixed";
-    }
-    
     /**
       * Changes the sign's color to the standard.
       */

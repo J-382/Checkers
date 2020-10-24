@@ -26,11 +26,6 @@ public class Locked extends Location
     }
     
     @Override
-    public String getType(){
-        return "locked";
-    }
-    
-    @Override
     public void changeFrame(){
         frame.changeColor("nice green");
     }

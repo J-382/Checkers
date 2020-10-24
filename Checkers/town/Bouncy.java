@@ -27,16 +27,16 @@ public class Bouncy extends Sign{
         return !bounce;
     }
     
-    @Override
-    public String getType(){
-        return "bouncy";
-    }
-    
     /**
       * Changes the sign's color to the standard.
       */
     public void changeColor(){
         colorSign = "green sheen";
         sign.changeColor(colorSign);        
+    }
+    
+    @Override
+    public boolean canJump(){
+        return true;
     }
 }

@@ -6,18 +6,16 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import javax.swing.JOptionPane;
 
 /**
  * The test class ContestTownATest.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Angie Medina - Jose Perez
+ * @version 24/10/20
  */
 public class ContestTownATest
 {
-    /**
-     * Default constructor for test class ContestTownATest
-     */
     private TownContest TownTest;
     public ContestTownATest()
     {
@@ -31,23 +29,15 @@ public class ContestTownATest
     @Before
     public void setUp()
     {
-        
     }
 
     @Test
-    public void segunMPdeberiaSerMayorElTiempo(){
+    public void pruebaSimulador(){
         TownContest TownTestSlow = new TownContest();
-        String[] input = new String[]{"6 5","1 2","1 3","2 3","4 5","5 6"};
-        long startTime = System.currentTimeMillis();
+        String[] input = new String[]{"6 5","1 2","1 3","2 3","4 5","5 6"}; //Primer Caso
         TownTestSlow.simulate(input, true);
-        long endTime = System.currentTimeMillis();
-        long slowTimeElapsed = endTime - startTime;
-        TownTest = new TownContest();
-        startTime = System.currentTimeMillis();
-        TownTest.simulate(input, false);
-        endTime = System.currentTimeMillis();
-        long TimeElapsed = endTime - startTime;
-        assertTrue(slowTimeElapsed > TimeElapsed);
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Is the result satisfying?","",JOptionPane.YES_NO_OPTION);
+        assertTrue(dialogResult==JOptionPane.YES_OPTION);
     }
     
     /**
@@ -58,5 +48,6 @@ public class ContestTownATest
     @After
     public void tearDown()
     {
+        
     }
 }

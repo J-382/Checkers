@@ -114,11 +114,6 @@ public class Street{
      * @param identifier identifier of the new sign
      */
     public Sign addSign(String signType, String identifier){
-        /*TownException Exc;
-        if(signType.equals("normal")) signs.put(identifier,new Sign(identifier,this));
-        else if(signType.equals("bouncy")) signs.put(identifier,new Bouncy(identifier,this));
-        else if(signType.equals("fixed")) signs.put(identifier, new Fixed(identifier, this));
-        else Exc = new TownException(TownException.INVALID_TYPE+"sign");*/
         Sign lastSign;
         if(signType.equals("fixed")) lastSign =  new Fixed(identifier, this);
         else if(signType.equals("bouncy")) lastSign = new Bouncy(identifier, this);
@@ -137,7 +132,7 @@ public class Street{
         boolean removed;
         removed = signs.get(identifier).remove();
         if(removed) signs.remove(identifier);
-        else if(signs.get(identifier).getType().equals("bouncy")) signs.remove(identifier);
+        else if(signs.get(identifier).canJump()) signs.remove(identifier);
         return removed;
     }
     
@@ -148,10 +143,6 @@ public class Street{
      */
     public boolean canHaveSigns(){
         return true;
-    }
-    
-    public String getType(){
-        return "normal";
     }
     
     /**

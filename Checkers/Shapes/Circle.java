@@ -39,6 +39,6 @@ public class Circle extends Figure{
     
     
     public Shape getShape(){
-        return (Shape) figure;
+        return figure;
     }
 }

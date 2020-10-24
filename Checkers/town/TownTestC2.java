@@ -103,7 +103,11 @@ public class TownTestC2
     public void deberiaCrearDadasCantidades(){
         int nLocations = 3, nStreets = 2, nSigns = 1;
         int contador = nLocations + nStreets + nSigns;
-        townC2 = new Town(500, 500, nLocations, nStreets, nSigns, false);
+        try{
+            townC2 = new Town(500, 500, nLocations, nStreets, nSigns, false);
+        }catch(TownException e){
+            fail("Lanzo excepción.");
+        }
         assertEquals(contador, townC2.allLocations().length + townC2.allStreets().length + townC2.allSigns().length);
     }
     
@@ -247,6 +251,7 @@ public class TownTestC2
         town.addStreet("blue","red");
         town.addLocation("green",200,200);
         town.addStreet("blue","green");
+        town.addSign("blue", "green");
         String[][] preUndoLocations = town.allLocations(), preUndoStreets = town.allStreets(), preUndoSigns = town.allSigns();
         for(int i = 0; i < 5; i++)town.undo();
         for(int i = 0; i < 5; i++)town.redo();

@@ -16,7 +16,6 @@ public class Graph
     private ArrayList<Tuple> deadEnds;
     private HashMap<Integer, ArrayList<Integer>> graph;
     private HashMap<Integer, Integer> cnt;
-    // instance variables - replace the example below with your own
     /**
      * Constructor for objects of class Graph
      */

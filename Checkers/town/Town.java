@@ -77,7 +77,7 @@ public class Town{
      *                       WRONG_STREET_TYPE,       if the street's type is not valid
      *                       WRONG_SIGN_TYPE,         if the sign's type is not valid
      */
-    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow){
+    public Town(int height, int width, int numberLocations, int numberStreets, int numberDeadEnds, boolean slow) throws TownException{
         this(height,width,slow);
         String[] colors = Canvas.colorsList();
         Arrays.sort(colors);
@@ -87,9 +87,7 @@ public class Town{
         for(int i = 0; i < numberLocations; i++) typeLocations[i] = "normal";
         for(int i = 0; i < numberStreets; i++) typeStreets[i] = "normal";
         for(int i = 0; i < numberDeadEnds; i++) typeSigns[i] = "normal";
-        try{
-            randomElements(typeLocations, typeStreets, typeSigns, colors);
-        }catch(TownException e){}
+        randomElements(typeLocations, typeStreets, typeSigns, colors);
     }
     
     /**
@@ -100,6 +98,7 @@ public class Town{
      */
     public Town(String[] input, boolean slow){
         this(1000,1000,slow);
+        if(slow) makeVisible();
         simulating = true;
         String[] instructions = input;
         int l = Integer.parseInt(instructions[0].split(" ")[0]), s = Integer.parseInt(instructions[0].split(" ")[1]);
@@ -149,9 +148,7 @@ public class Town{
         this(height,width,false);
         String[] colors = Canvas.colorsList();
         Arrays.sort(colors);
-        try{
-            randomElements(typeLocations, typeStreets, typeSigns, colors);
-        }catch(TownException e){throw e;}
+        randomElements(typeLocations, typeStreets, typeSigns, colors);
     }
     
     /*
@@ -204,13 +201,17 @@ public class Town{
         ArrayList<String> locationStreets = new ArrayList<>();
         Random r = new Random();
         for(int i = 0; i < typeLocations.length; i++){
-            if(!validLocations.contains(typeLocations[i].toLowerCase())) throw new TownException(TownException.WRONG_LOCATION_TYPE);
+            if(!validLocations.contains(typeLocations[i].toLowerCase())) {
+                throw new TownException(TownException.WRONG_LOCATION_TYPE);
+            }
             boolean isAValidLocation = false;
             while(!isAValidLocation){
                 addLocation(typeLocations[i], colors[i], r.nextInt(height - 20), r.nextInt(width - 20)); 
                 isAValidLocation = ok();
             }
-            if (locations.get(colors[i]).canHaveStreets()) locationStreets.add(colors[i]);
+            if (locations.get(colors[i]).canHaveStreets()) {
+                locationStreets.add(colors[i]);
+            }
         }
         return locationStreets;
     }
@@ -227,7 +228,9 @@ public class Town{
         ArrayList<String> streetSigns = new ArrayList<String>();
         Random r = new Random();
         for(int i = 0; i < typeStreets.length; i++){
-            if(!validStreets.contains(typeStreets[i])) throw new TownException(TownException.WRONG_STREET_TYPE);
+            if(!validStreets.contains(typeStreets[i])) {
+                throw new TownException(TownException.WRONG_STREET_TYPE);
+            }
             boolean isAValidStreet = false;
             int a = 0, b = 0;
             while(!isAValidStreet){
@@ -237,7 +240,9 @@ public class Town{
             }
             String locationA = locationStreets.get(a), locationB = locationStreets.get(b);
             String identifier = locationA.compareTo(locationB) < 0 ? (locationA + "-" + locationB):(locationB + "-" + locationA);
-            if (streets.get(identifier).canHaveSigns()) streetSigns.add(identifier);
+            if (streets.get(identifier).canHaveSigns()) {
+                streetSigns.add(identifier);
+            }
         }
         return streetSigns;
     }
@@ -251,7 +256,9 @@ public class Town{
     private void randomSigns(ArrayList<String> streetSigns, String[] typeSigns) throws TownException{
         Random r = new Random();
         for(int i = 0; i < typeSigns.length; i++){
-            if(!validSigns.contains(typeSigns[i])) throw new TownException(TownException.WRONG_SIGN_TYPE);
+            if(!validSigns.contains(typeSigns[i])) {
+                throw new TownException(TownException.WRONG_SIGN_TYPE);
+            }
             if (streets.size() > 0){
                 int a = r.nextInt(streetSigns.size());
                 addSign(streetSigns.get(a).split("-")[0], streetSigns.get(a).split("-")[1]);
@@ -273,10 +280,18 @@ public class Town{
      *                       LOCATION_COLLISION,  if the location's positions are already occupied
      */
     private void checkLocation(String color, int x, int y, String type) throws TownException{
-       if(!Arrays.asList(Canvas.colorsList()).contains(color)) throw new TownException(TownException.COLOR_UNAVAILABLE);
-       if(locations.containsKey(color))throw new TownException(TownException.EXISTING_LOCATION);
-       if(!(validLocations.contains(type))) throw new TownException(TownException.WRONG_LOCATION_TYPE);
-       if(lastLocation != null) lastLocation.changeFrame();
+       if(!Arrays.asList(Canvas.colorsList()).contains(color)) {
+           throw new TownException(TownException.COLOR_UNAVAILABLE);
+       }
+       if(locations.containsKey(color)){
+           throw new TownException(TownException.EXISTING_LOCATION);
+       }
+       if(!(validLocations.contains(type))) {
+           throw new TownException(TownException.WRONG_LOCATION_TYPE);
+       }
+       if(lastLocation != null) {
+           lastLocation.changeFrame();
+       }
        lastLocation = Town.createLocation(color,x,y,type);
        if(isCollisioning(lastLocation)){
            delLocation(lastLocation.getColor());
@@ -293,10 +308,18 @@ public class Town{
        */
     public static Location createLocation(String color, int x, int y, String type){
        Location location = null;
-       if (type.equals("normal")) location = new Location(color, x, y);
-       else if (type.equals("reverse")) location = new Reverse(color, x, y);
-       else if (type.equals("isolated")) location = new Isolated(color, x, y);
-       else if (type.equals("locked")) location = new Locked(color, x, y);
+       if (type.equals("reverse")) {
+           location = new Reverse(color, x, y);
+       }
+       else if (type.equals("isolated")) {
+           location = new Isolated(color, x, y);
+       }
+       else if (type.equals("locked")) {
+           location = new Locked(color, x, y);
+       }
+       else{
+           location = new Location(color, x, y);
+       }
        return location;
     }
     
@@ -347,6 +370,7 @@ public class Town{
         String pat = "([A-Za-z-])*"+color+"([A-Za-z-])*";
         int x = 0 ,y = 0;
         ok = true;
+        boolean changeLastLocation = false;
         if(locations.containsKey(color)){
             for(String i: streets.keySet()){
                 if(i.matches(pat)){
@@ -359,7 +383,7 @@ public class Town{
             locations.get(color).makeInvisible();
             locations.remove(color);
         }
-        else {ok = false;}
+        else {ok = false;}  
         if (ok){visibleAction("undo del location ", "location");}        
     }
     
@@ -405,9 +429,15 @@ public class Town{
      */
     public static Street createStreet(String type, Location lA, Location lB){
         Street street = null;
-        if (type.equals("normal")) street = new Street(lA, lB);
-        else if (type.equals("prudent")) street = new Prudent(lA, lB);
-        else if (type.equals("silent")) street = new Silent(lA, lB);
+        if (type.equals("prudent")) {
+            street = new Prudent(lA, lB);
+        }
+        else if (type.equals("silent")) {
+            street = new Silent(lA, lB);
+        }
+        else{
+            street = new Street(lA, lB);
+        }
         return street;
     }
     
@@ -504,14 +534,26 @@ public class Town{
      *                       WRONG_SIGN_TYPE,    if the signs's type is not valid;
      */
     private void checkSign(String streetIdentifier,String signIdentifier, String locationA, String locationB, String type) throws TownException{
-       if(!(locations.containsKey(locationA) && locations.containsKey(locationB)))throw new TownException(TownException.LOCATION_NOT_FOUND);
-       if(!streets.containsKey(streetIdentifier)) throw new TownException(TownException.STREET_NOT_FOUND);
-       if(streets.get(streetIdentifier).containsSign(signIdentifier)) throw new TownException(TownException.EXISTING_SIGN);
-       if(!streets.get(streetIdentifier).canHaveSigns()) throw new TownException(TownException.STREET_NO_SIGN);
-       if(!(validSigns.contains(type))) throw new TownException(TownException.WRONG_SIGN_TYPE);
+       if(!(locations.containsKey(locationA) && locations.containsKey(locationB))){
+           throw new TownException(TownException.LOCATION_NOT_FOUND);
+       }
+       if(!streets.containsKey(streetIdentifier)) {
+           throw new TownException(TownException.STREET_NOT_FOUND);
+       }
+       if(streets.get(streetIdentifier).containsSign(signIdentifier)){
+           throw new TownException(TownException.EXISTING_SIGN);
+       }
+       if(!streets.get(streetIdentifier).canHaveSigns()) {
+           throw new TownException(TownException.STREET_NO_SIGN);
+       }
+       if(!(validSigns.contains(type))) {
+           throw new TownException(TownException.WRONG_SIGN_TYPE);
+       }
        
        if(lastSign != null) {
-           streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
+           try{
+               streets.get(lastSign[0]).getSign(lastSign[1]).changeColor();
+           }catch (Exception e){}
        }
        lastSign = new String[]{streetIdentifier,signIdentifier};
        streets.get(streetIdentifier).addSign(type, signIdentifier);
@@ -647,7 +689,6 @@ public class Town{
                 undoRedoActions(action, "undo");
                 actions.remove(actions.size()-1);
                 actionsIterator--;
-                actions.add("");
             }
             else ok = false;
         }
@@ -681,7 +722,6 @@ public class Town{
                 undoRedoActions(action, "redo");
                 actions.remove(actions.size()-1);
                 actionsIterator--;
-                actions.add("");
             }
             else ok = false;
         }
@@ -768,7 +808,7 @@ public class Town{
         }
         Collections.sort(aux);
         String[][] matriz = new String[aux.size()][2];
-        for(int i=0; i<aux.size(); i++){
+        for(int i = 0; i < aux.size(); i++){
             matriz[i][0] = aux.get(i).split("-")[0];
             matriz[i][1] = aux.get(i).split("-")[1];
         }
@@ -998,7 +1038,7 @@ public class Town{
         addSign("bouncy","red","green");
         addSign("fixed","blue","green");
         addSign("red","blue");
-    }
+    } 
 }
 
 

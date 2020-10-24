@@ -145,8 +145,8 @@ public abstract class Figure{
         return color;
     }
     
-    /*
-     * Draw the circle with current specifications on screen.
+    /**
+     * Draw the figure with current specifications on screen.
      */
     public void draw(){     
         if(isVisible) {

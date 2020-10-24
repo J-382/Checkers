@@ -20,12 +20,7 @@ public class Silent extends Street
     @Override
     public boolean canHaveSigns(){
         return false;
-    }
-    
-    @Override
-    public String getType(){
-        return "silent";
-    }
+    }   
      
     public void changeColor(){
         super.changeColor("pearly purple");

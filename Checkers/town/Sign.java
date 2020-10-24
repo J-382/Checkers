@@ -164,10 +164,9 @@ public class Sign{
     }
     
     /**
-     * Returns the sign's type
-     * @returns String contains the sign's type
+     * Returns if the sign can jump when it intends to be remove
      */
-    public String getType(){
-        return "normal";
+    public boolean canJump(){
+        return false;
     }
 }
