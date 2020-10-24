@@ -65,22 +65,6 @@ public class TownContestTest
         assertEquals(desireAnswer.toString(), answer.toString());
     }
     
-    @Test
-    public void segunMPdeberiaSerMayorElTiempo(){
-        TownContest TownTestSlow = new TownContest();
-        String[] input = new String[]{"6 5","1 2","1 3","2 3","4 5","5 6"};
-        long startTime = System.currentTimeMillis();
-        TownTestSlow.simulate(input, true);
-        long endTime = System.currentTimeMillis();
-        long slowTimeElapsed = endTime - startTime;
-        TownTest = new TownContest();
-        startTime = System.currentTimeMillis();
-        TownTest.simulate(input, false);
-        endTime = System.currentTimeMillis();
-        long TimeElapsed = endTime - startTime;
-        assertTrue(slowTimeElapsed > TimeElapsed);
-    }
-    
     /**
      * Tears down the test fixture.
      *

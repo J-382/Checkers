@@ -25,6 +25,12 @@ public class Graph
         this.graph = graph;
     }
     
+    /**
+     * Returns a hashmap with the graph's representation for a given input 
+     * Input must follow the deadEndDetector contest format
+     * @param input array of string with the information for the graph
+     * @returns Hashmap with the graph's representation for a given input 
+     */
     static public HashMap<Integer, ArrayList<Integer>> graphMaker(String input[]){
         HashMap<Integer, ArrayList<Integer>> graph = new HashMap<Integer, ArrayList<Integer>>();
         for(String i: input){
@@ -37,9 +43,13 @@ public class Graph
         return graph;
     }
     
-    /*
+    /**
      * Makes a minimum Spanning Tree with the current information in the simulator, 
      * then makes slightly transparent those streets and signs that don't belong to the M.S.T
+     * @param size number of locations
+     * @param vertex ArrayList with the town's locations
+     * @param edges kind of adjacent matrix with the distance between locations
+     * @param components ArrayList with the start node of each subgraph
      */
     public static String[] mst(ArrayList<String> vertex, double[][] edges, ArrayList<Integer> components, int size){
         /* A 2 elements tuple Class */
@@ -95,8 +105,11 @@ public class Graph
         return set;
     }   
     
-    /* 
+    /** 
      * Returns a list with the inital nodes for each subgraph in the current town
+     * @param size number of locations
+     * @param vertex arrayList with the town's locations
+     * @param edges kind of adjacent matrix with the distance between locations
      */
     public static ArrayList<Integer> componentsFinder(int size, ArrayList<String> vertex, double[][] edges){
         ArrayList<Integer> vertexNumbers = new ArrayList<Integer>(), graphs = new ArrayList<Integer>();
@@ -113,7 +126,10 @@ public class Graph
         return graphs;
     }
     
-    public void findDeadEnds(){
+    /**
+     * Find all deadEnds locations in the given graph
+       */
+    private void findDeadEnds(){
         cnt = new HashMap<Integer, Integer>();
         Deque<Integer> qu = new ArrayDeque<Integer>();
         deadEnds = new ArrayList<Tuple>();
@@ -143,7 +159,11 @@ public class Graph
         }
     }
     
-    public void dfs(int father, int node){
+    /**
+     * @param node Start for the dfs
+     * @param father start node's father
+       */
+    private void dfs(int father, int node){
         Deque<Tuple> qu = new ArrayDeque<Tuple>();
         qu.add(new Tuple(father,node));
         while(!qu.isEmpty()){
@@ -160,6 +180,9 @@ public class Graph
         }
     }
     
+    /**
+     * @return A string with the arena solution for the given graph
+       */
     public String[] solution(){
         findDeadEnds();
         int cont = 0;
