@@ -53,19 +53,19 @@ public class TownATest
     
     @Test
     public void pruebaCallesSobrantes(){
-        townTest = new Town(1000,1000);
+        townTest = new Town(700,700);
         String[] colors = new String[]{"blue","bronze","cinnamon","cyan","lavender","sand","magenta neon","mustard","pink","parrot","watermelon"};
         townTest.addLocation(colors[0],500,300);
         townTest.addLocation(colors[1],200,200);
         townTest.addLocation(colors[2],550,100);
-        townTest.addLocation(colors[3],700,200);
-        townTest.addLocation(colors[4],550,550);
-        townTest.addLocation(colors[5],400,750);
-        townTest.addLocation(colors[6],750,550);
-        townTest.addLocation(colors[7],600,750);
-        townTest.addLocation(colors[8],250,500);
-        townTest.addLocation(colors[9],150,750);
-        townTest.addLocation(colors[10],100,600);
+        townTest.addLocation(colors[3],600,200);
+        townTest.addLocation(colors[4],450,550);
+        townTest.addLocation(colors[5],300,650);
+        townTest.addLocation(colors[6],650,450);
+        townTest.addLocation(colors[7],600,650);
+        townTest.addLocation(colors[8],250,400);
+        townTest.addLocation(colors[9],150,650);
+        townTest.addLocation(colors[10],100,500);
         townTest.addStreet(colors[0],colors[1]);
         townTest.addStreet(colors[1],colors[2]);
         townTest.addStreet(colors[2],colors[3]);

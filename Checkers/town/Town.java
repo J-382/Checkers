@@ -97,7 +97,7 @@ public class Town{
      * @param boolean that specifics the speed of the simulation
      */
     public Town(String[] input, boolean slow){
-        this(1000,1000,slow);
+        this(700,700,slow);
         if(slow) makeVisible();
         simulating = true;
         String[] instructions = input;
@@ -109,8 +109,7 @@ public class Town{
             boolean isAValidLocation = false;
             int n = 0;
             while(!isAValidLocation){
-                n = r.nextInt(50);
-                addLocation(colorsList[i],r.nextInt(500),r.nextInt(500));
+                addLocation(colorsList[i],r.nextInt(660)+20,r.nextInt(660)+20);
                 isAValidLocation = ok();
             }
         }
